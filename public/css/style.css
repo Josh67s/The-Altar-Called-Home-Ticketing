@@ -482,3 +482,103 @@ body{
     color:white;
 
 }
+
+/* ===========================
+   ABOUT MOVIE
+=========================== */
+
+.about-movie{
+
+    padding:120px 80px;
+
+}
+
+.movie-grid{
+
+    display:grid;
+
+    grid-template-columns:420px 1fr;
+
+    gap:80px;
+
+    align-items:center;
+
+}
+
+.movie-poster img{
+
+    width:100%;
+
+    border-radius:18px;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
+
+}
+
+.small-title{
+
+    color:#D4AF37;
+
+    letter-spacing:3px;
+
+    margin-bottom:18px;
+
+}
+
+.movie-details h2{
+
+    font-family:"Cinzel",serif;
+
+    font-size:48px;
+
+    margin-bottom:30px;
+
+}
+
+.movie-story{
+
+    color:#CFCFCF;
+
+    line-height:1.9;
+
+    margin-bottom:40px;
+
+}
+
+.movie-info{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+
+    margin-bottom:45px;
+
+}
+
+.movie-info strong{
+
+    display:block;
+
+    color:#D4AF37;
+
+    margin-bottom:8px;
+
+}
+
+.watch-btn{
+
+    display:inline-block;
+
+    text-decoration:none;
+
+    background:#6B1111;
+
+    color:white;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+}
