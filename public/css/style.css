@@ -9,3 +9,135 @@ body{
     color:white;
     font-family:Poppins,sans-serif;
 }
+
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#0B0B0B;
+
+    color:#FFFFFF;
+
+    font-family:"Poppins",sans-serif;
+
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 70px;
+
+    background:rgba(0,0,0,.95);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.production{
+
+    font-size:15px;
+
+    color:#D4AF37;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.movie-title{
+
+    font-family:"Cinzel",serif;
+
+    font-size:30px;
+
+    color:#FFFFFF;
+
+    margin-top:6px;
+
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+.nav-links{
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+.nav-links a{
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+    color:#D4AF37;
+
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+.buy-ticket-btn{
+
+    background:#D4AF37;
+
+    color:#000;
+
+    text-decoration:none;
+
+    padding:14px 28px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.buy-ticket-btn:hover{
+
+    background:#FFFFFF;
+
+}
