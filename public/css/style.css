@@ -141,3 +141,124 @@ body{
     background:#FFFFFF;
 
 }
+
+/* ===========================
+   HERO SECTION
+=========================== */
+
+.hero{
+
+    height:100vh;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,.75),
+        rgba(0,0,0,.75)),
+        url("../images/hero-bg.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.hero-overlay{
+
+    width:100%;
+
+    padding:0 80px;
+
+}
+
+.hero-content{
+
+    max-width:700px;
+
+}
+
+.premiere-text{
+
+    color:#D4AF37;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:20px;
+
+}
+
+.hero-title{
+
+    font-family:"Cinzel",serif;
+
+    font-size:72px;
+
+    line-height:1.1;
+
+    margin-bottom:20px;
+
+}
+
+.hero-tagline{
+
+    font-size:28px;
+
+    font-weight:600;
+
+    margin-bottom:25px;
+
+}
+
+.hero-description{
+
+    font-size:18px;
+
+    color:#CFCFCF;
+
+    line-height:1.8;
+
+    margin-bottom:40px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.primary-btn{
+
+    background:#D4AF37;
+
+    color:#000;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.secondary-btn{
+
+    border:2px solid #D4AF37;
+
+    color:#D4AF37;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+}
