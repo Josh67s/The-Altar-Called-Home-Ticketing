@@ -1,0 +1,140 @@
+[debug] [2026-07-09T12:22:31.731Z] ----------------------------------------------------------------------
+[debug] [2026-07-09T12:22:31.739Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2026-07-09T12:22:31.739Z] CLI Version:   13.34.0
+[debug] [2026-07-09T12:22:31.739Z] Platform:      win32
+[debug] [2026-07-09T12:22:31.740Z] Node Version:  v22.14.0
+[debug] [2026-07-09T12:22:31.740Z] Time:          Thu Jul 09 2026 13:22:31 GMT+0100 (West Africa Standard Time)
+[debug] [2026-07-09T12:22:31.740Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-07-09T12:22:31.752Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-09T12:22:31.753Z] > authorizing via signed-in user (amazingcrewtv1@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\user\Desktop\The Altar Called Home Ticketing
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2026-07-09T12:33:04.958Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:33:04.958Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:33:04.960Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2026-07-09T12:33:13.821Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-07-09T12:33:13.821Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project the-altar-called-home-tickets (THE ALTAR CALLED HOME TICKETS) 
+[info] 
+=== Firestore Setup
+[debug] [2026-07-09T12:38:09.484Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:38:09.484Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:38:09.484Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/firestore.googleapis.com [none]
+[debug] [2026-07-09T12:38:09.484Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/firestore.googleapis.com x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:38:17.294Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/firestore.googleapis.com 200
+[debug] [2026-07-09T12:38:17.295Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-09T12:38:17.296Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:38:17.296Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:38:17.296Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default) [none]
+[debug] [2026-07-09T12:38:24.427Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default) 200
+[debug] [2026-07-09T12:38:24.428Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default) {"name":"projects/the-altar-called-home-tickets/databases/(default)","uid":"13c782fb-49b6-4733-8e26-0b900915f93b","createTime":"2026-07-07T15:49:26.193053Z","updateTime":"2026-07-07T15:49:26.193053Z","locationId":"africa-south1","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-07-09T11:38:20.102155Z","appEngineIntegrationMode":"DISABLED","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IPWnmrHOxZUDMOvu57H1wJUD"}
+[debug] [2026-07-09T12:38:24.428Z] database_type: FIRESTORE_NATIVE
+[debug] [2026-07-09T12:38:24.428Z] database_type: FIRESTORE_NATIVE
+[debug] [2026-07-09T12:38:24.428Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-09T12:38:24.429Z] > authorizing via signed-in user (amazingcrewtv1@gmail.com)
+[debug] [2026-07-09T12:38:24.429Z] [iam] checking project the-altar-called-home-tickets for permissions ["firebase.projects.get"]
+[debug] [2026-07-09T12:38:24.429Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:38:24.429Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:38:24.429Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions [none]
+[debug] [2026-07-09T12:38:24.429Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:38:24.430Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-07-09T12:38:35.909Z] *** [apiv2] error from fetch(https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions, {"headers":{},"method":"POST","body":"{\"permissions\":[\"firebase.projects.get\"]}"}): FetchError: request to https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions failed, reason: getaddrinfo ENOTFOUND cloudresourcemanager.googleapis.com
+[debug] [2026-07-09T12:38:35.910Z] [iam] error while checking permissions, command may fail: Failed to make request to https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2026-07-09T12:41:49.990Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:41:49.990Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:41:49.991Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/the-altar-called-home-tickets/releases pageSize=10&pageToken=
+[debug] [2026-07-09T12:41:53.529Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/the-altar-called-home-tickets/releases 200
+[debug] [2026-07-09T12:41:53.529Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/the-altar-called-home-tickets/releases {"releases":[{"name":"projects/the-altar-called-home-tickets/releases/cloud.firestore","rulesetName":"projects/the-altar-called-home-tickets/rulesets/e7a386c6-b10e-46fe-978b-29346594f119","createTime":"2026-07-07T15:49:31.323062Z","updateTime":"2026-07-07T15:49:31.323062Z"}]}
+[debug] [2026-07-09T12:41:53.529Z] Found ruleset: projects/the-altar-called-home-tickets/rulesets/e7a386c6-b10e-46fe-978b-29346594f119
+[debug] [2026-07-09T12:41:53.530Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:41:53.530Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:41:53.530Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/the-altar-called-home-tickets/rulesets/e7a386c6-b10e-46fe-978b-29346594f119 [none]
+[debug] [2026-07-09T12:41:54.388Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/the-altar-called-home-tickets/rulesets/e7a386c6-b10e-46fe-978b-29346594f119 200
+[debug] [2026-07-09T12:41:54.388Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/the-altar-called-home-tickets/rulesets/e7a386c6-b10e-46fe-978b-29346594f119 [omitted]
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2026-07-09T12:43:56.633Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:43:56.633Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:43:56.634Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:43:56.634Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:43:56.634Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2026-07-09T12:43:56.638Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2026-07-09T12:44:05.724Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2026-07-09T12:44:05.724Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2026-07-09T12:44:07.109Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2026-07-09T12:44:07.109Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/the-altar-called-home-tickets/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] 
+=== Functions Setup
+[debug] [2026-07-09T12:44:07.115Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-09T12:44:07.116Z] > authorizing via signed-in user (amazingcrewtv1@gmail.com)
+[debug] [2026-07-09T12:44:07.116Z] [iam] checking project the-altar-called-home-tickets for permissions ["firebase.projects.get"]
+[debug] [2026-07-09T12:44:07.116Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:07.117Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:07.117Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions [none]
+[debug] [2026-07-09T12:44:07.117Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:44:07.118Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-07-09T12:44:09.527Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions 200
+[debug] [2026-07-09T12:44:09.527Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/the-altar-called-home-tickets:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-07-09T12:44:09.528Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:09.528Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:09.528Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:09.528Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:09.528Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com [none]
+[debug] [2026-07-09T12:44:09.528Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:44:09.532Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/runtimeconfig.googleapis.com [none]
+[debug] [2026-07-09T12:44:09.532Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:44:11.096Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com 200
+[debug] [2026-07-09T12:44:11.096Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2026-07-09T12:44:11.097Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:11.097Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:11.097Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2026-07-09T12:44:11.097Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com:enable x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:44:11.100Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/runtimeconfig.googleapis.com 200
+[debug] [2026-07-09T12:44:11.100Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2026-07-09T12:44:15.363Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2026-07-09T12:44:15.364Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com:enable [omitted]
+[debug] [2026-07-09T12:44:25.369Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:25.370Z] Checked if tokens are valid: true, expires at: 1783603174558
+[debug] [2026-07-09T12:44:25.370Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com [none]
+[debug] [2026-07-09T12:44:25.370Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/the-altar-called-home-tickets
+[debug] [2026-07-09T12:44:26.633Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com 200
+[debug] [2026-07-09T12:44:26.633Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/the-altar-called-home-tickets/services/cloudfunctions.googleapis.com [omitted]
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[info] +  Wrote functions/package.json 
+[info] +  Wrote functions/.eslintrc.js 
+[info] +  Wrote functions/index.js 
+[info] +  Wrote functions/.gitignore 
