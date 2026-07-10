@@ -18,27 +18,34 @@
 <body>
 
 <div class="wizard">
+<div class="progress">
 
-    <div class="progress">
+    <div class="step active" data-step="1">1</div>
+    <div class="line"></div>
 
-        <div class="step active">1</div>
-        <div class="line"></div>
+    <div class="step" data-step="2">2</div>
+    <div class="line"></div>
 
-        <div class="step">2</div>
-        <div class="line"></div>
+    <div class="step" data-step="3">3</div>
+    <div class="line"></div>
 
-        <div class="step">3</div>
-        <div class="line"></div>
+    <div class="step" data-step="4">4</div>
+    <div class="line"></div>
 
-        <div class="step">4</div>
-        <div class="line"></div>
+    <div class="step" data-step="5">5</div>
+    <div class="line"></div>
 
-        <div class="step">5</div>
+    <div class="step" data-step="6">6</div>
+    <div class="line"></div>
 
-    </div>
+    <div class="step" data-step="7">7</div>
+
+</div>
 
     <div class="content">
 
+        <div class="step-panel active" id="step1">
+            
         <h1>Choose Your Ticket</h1>
 
         <p>
@@ -95,9 +102,10 @@
         <small>Best experience for the premiere.</small>
 
     </div>
-
 </div>
+    </div>
 
+    <div class="step-panel" id="step2">
 <div class="quantity-section">
 
     <h2>How Many Tickets?</h2>
@@ -132,11 +140,65 @@
 
     </div>
 
+    <div class="actions">
+
+    <button id="quantityContinue" class="primary-btn">
+
+        Continue →
+
+    </button>
+
 </div>
+</div>
+    </div>
 
-<div class="actions">
 
-    <button id="continueBtn" disabled>
+<div class="step-panel" id="step3">
+<div class="buyer-section">
+
+    <h2 class="section-heading">
+
+        Buyer Information
+
+    </h2>
+
+    <div class="buyer-card">
+
+        <label>Full Name</label>
+
+        <input
+            type="text"
+            id="buyerName"
+            placeholder="Enter your full name">
+
+        <label>Email Address</label>
+
+        <input
+            type="email"
+            id="buyerEmail"
+            placeholder="Enter your email">
+
+        <label>Phone Number</label>
+
+        <input
+            type="tel"
+            id="buyerPhone"
+            placeholder="Enter your phone number">
+
+        <label class="checkbox">
+
+            <input
+                type="checkbox"
+                id="buyerAttending"
+                checked>
+
+            I am also attending this event.
+
+        </label>
+
+        <div class="actions">
+
+    <button id="buyerContinue" class="primary-btn">
 
         Continue →
 
@@ -147,6 +209,151 @@
     </div>
 
 </div>
+</div>
+
+<div class="step-panel" id="step4">
+<div class="attendee-section">
+
+    <h2 class="section-heading">
+
+        Attendee Information
+
+    </h2>
+
+    <div id="attendeeContainer">
+
+    </div>
+
+    <div class="actions navigation-buttons">
+
+    <button
+        id="attendeeBack"
+        class="secondary-btn">
+
+        ← Back
+
+    </button>
+
+    <button
+        id="attendeeContinue"
+        class="primary-btn">
+
+        Continue →
+
+    </button>
+
+</div>
+
+</div>
+</div>
+
+<div class="step-panel" id="step5">
+
+    <h2 class="section-heading">
+
+        Review Your Order
+
+    </h2>
+
+    <div class="review-card">
+
+        <div class="review-row">
+
+            <span>Ticket Type</span>
+
+            <strong id="reviewTicket"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Price Per Ticket</span>
+
+            <strong id="reviewPrice"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Quantity</span>
+
+            <strong id="reviewQuantity"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Total</span>
+
+            <strong id="reviewTotal"></strong>
+
+        </div>
+
+        <hr>
+
+        <div class="review-row">
+
+            <span>Buyer</span>
+
+            <strong id="reviewBuyer"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Email</span>
+
+            <strong id="reviewEmail"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Phone</span>
+
+            <strong id="reviewPhone"></strong>
+
+        </div>
+
+        <hr>
+
+        <h3>
+
+            Attendees
+
+        </h3>
+
+        <div id="reviewAttendees">
+
+        </div>
+
+    </div>
+
+    <div class="actions navigation-buttons">
+
+        <button
+            id="reviewBack"
+            class="secondary-btn">
+
+            ← Back
+
+        </button>
+
+        <button
+            id="reviewContinue"
+            class="primary-btn">
+
+            Proceed to Payment →
+
+        </button>
+
+    </div>
+
+</div>
+
+</div> <!---END OF CONTENT----->
+</div> <!---END OF WIZARD------>
+
 
 <script src="script.js"></script>
 
