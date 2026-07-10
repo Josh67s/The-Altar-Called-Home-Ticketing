@@ -90,9 +90,146 @@ body{
 
     display:grid;
 
+    grid-template-columns:repeat(3,1fr);
+
     gap:25px;
 
     margin-top:40px;
+
+}
+
+.ticket-card{
+
+    background:#202020;
+
+    border:2px solid transparent;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    position:relative;
+
+}
+
+.ticket-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#D4AF37;
+
+}
+
+.ticket-card.selected{
+
+    border:3px solid #D4AF37;
+
+    background:#272015;
+
+}
+
+.ticket-card h2{
+
+    margin-bottom:15px;
+
+}
+
+.ticket-card h3{
+
+    color:#D4AF37;
+
+    font-size:40px;
+
+    margin-bottom:15px;
+
+}
+
+.ticket-card p{
+
+    margin-bottom:12px;
+
+}
+
+.ticket-card small{
+
+    color:#BBBBBB;
+
+}
+
+.recommended,
+.vip{
+
+    position:absolute;
+
+    top:-14px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    padding:7px 16px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+.recommended{
+
+    background:#D4AF37;
+
+    color:black;
+
+}
+
+.vip{
+
+    background:#7A0C0C;
+
+}
+
+.actions{
+
+    margin-top:50px;
+
+    text-align:right;
+
+}
+
+#continueBtn{
+
+    padding:18px 36px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background:#D4AF37;
+
+    color:black;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    opacity:.45;
+
+    transition:.3s;
+
+}
+
+#continueBtn:enabled{
+
+    opacity:1;
 
 }
 
@@ -113,5 +250,97 @@ body{
     color:black;
 
     font-weight:bold;
+
+}
+
+/* ===========================
+   QUANTITY
+=========================== */
+
+.quantity-section{
+
+    margin-top:60px;
+
+}
+
+.quantity-section h2{
+
+    margin-bottom:25px;
+
+}
+
+.quantity-box{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:25px;
+
+}
+
+.quantity-box button{
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#D4AF37;
+
+    color:black;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.quantity-box span{
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    min-width:50px;
+
+    text-align:center;
+
+}
+
+.summary{
+
+    margin-top:50px;
+
+    background:#222;
+
+    padding:30px;
+
+    border-radius:15px;
+
+}
+
+.summary div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+
+}
+
+.summary strong{
+
+    color:#D4AF37;
+
+    font-size:24px;
 
 }
