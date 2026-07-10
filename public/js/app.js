@@ -37,3 +37,9 @@ function updateCountdown() {
 updateCountdown();
 
 setInterval(updateCountdown, 1000);
+
+window.addEventListener("load", () => {
+
+    document.querySelector(".hero-content").classList.add("show");
+
+});

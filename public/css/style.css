@@ -1,3 +1,7 @@
+html{
+    scroll-behavior:smooth;
+}
+
 *{
     margin:0;
     padding:0;
@@ -108,6 +112,38 @@ body{
 
 }
 
+.nav-links a{
+
+    position:relative;
+
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:#D4AF37;
+
+    transition:.35s;
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
 .nav-links a:hover{
 
     color:#D4AF37;
@@ -175,7 +211,19 @@ body{
 
 .hero-content{
 
-    max-width:700px;
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:1s;
+
+}
+
+.hero-content.show{
+
+    opacity:1;
+
+    transform:translateY(0);
 
 }
 
@@ -245,7 +293,19 @@ body{
 
     text-decoration:none;
 
-    font-weight:600;
+    font-weight:700;
+
+    transition:.35s;
+
+    display:inline-block;
+
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(212,175,55,.35);
 
 }
 
@@ -260,6 +320,19 @@ body{
     border-radius:50px;
 
     text-decoration:none;
+
+    transition:.35s;
+display:inline-block;
+
+}
+
+.secondary-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(212,175,55,.35);
+
+    transform:translateY(-4px);
 
 }
 
@@ -441,6 +514,19 @@ body{
 
     font-weight:bold;
 
+    transition:.35s;
+display:inline-block;
+
+}
+
+.ticket-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(212,175,55,.35);
+
+    transform:translateY(-4px);
+
 }
 
 .badge{
@@ -513,6 +599,14 @@ body{
 
     box-shadow:0 25px 60px rgba(0,0,0,.45);
 
+    transition:.4s;
+
+}
+
+.movie-poster img:hover{
+
+    transform:scale(1.03);
+
 }
 
 .small-title{
@@ -580,5 +674,311 @@ body{
     padding:16px 34px;
 
     border-radius:50px;
+
+}
+
+/* ===========================
+   CAST
+=========================== */
+
+.cast-section{
+
+    padding:120px 80px;
+
+    text-align:center;
+
+}
+
+.center{
+
+    text-align:center;
+
+}
+
+.cast-heading{
+
+    font-family:"Cinzel",serif;
+
+    font-size:46px;
+
+    margin-bottom:70px;
+
+}
+
+.cast-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:35px;
+
+}
+
+.cast-card{
+
+    background:#151515;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    transition:.35s;
+
+}
+
+.cast-card:hover{
+
+    transform:translateY(-12px);
+
+    border:1px solid #D4AF37;
+
+}
+
+.cast-card img{
+
+    width:160px;
+
+    height:160px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:5px solid #D4AF37;
+
+    margin-bottom:25px;
+
+}
+
+.cast-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.cast-card p{
+
+    color:#CFCFCF;
+
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+.footer{
+
+    background:#0A0A0A;
+
+    padding:80px;
+
+    border-top:1px solid rgba(212,175,55,.2);
+
+}
+
+.footer-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr 1fr;
+
+    gap:50px;
+
+}
+
+.footer h2{
+
+    color:#D4AF37;
+
+    margin-bottom:20px;
+
+}
+
+.footer h3{
+
+    color:#D4AF37;
+
+    margin-bottom:18px;
+
+}
+
+.footer p{
+
+    color:#BDBDBD;
+
+    line-height:1.8;
+
+}
+
+.footer ul{
+
+    list-style:none;
+
+}
+
+.footer li{
+
+    margin:12px 0;
+
+}
+
+.footer a{
+
+    color:#BDBDBD;
+
+    text-decoration:none;
+
+}
+
+.footer a:hover{
+
+    color:#D4AF37;
+
+}
+
+.footer hr{
+
+    margin:60px 0 30px;
+
+    border:none;
+
+    border-top:1px solid rgba(255,255,255,.1);
+
+}
+
+.copyright{
+
+    text-align:center;
+
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+
+@media (max-width: 992px){
+
+    .hero{
+
+        height:auto;
+
+        padding:120px 0 80px;
+
+    }
+
+    .hero-overlay{
+
+        padding:0 30px;
+
+    }
+
+    .hero-title{
+
+        font-size:48px;
+
+    }
+
+    .movie-grid{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+    .movie-info{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .footer-grid{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+    .nav-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .countdown{
+
+        justify-content:center;
+
+    }
+
+    .time-box{
+
+        width:80px;
+
+        height:80px;
+
+    }
+
+    .time-box span{
+
+        font-size:26px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .ticket-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    .tickets{
+
+        padding:80px 25px;
+
+    }
+
+    .about-movie{
+
+        padding:80px 25px;
+
+    }
+
+    .cast-section{
+
+        padding:80px 25px;
+
+    }
+
+    .footer{
+
+        padding:50px 25px;
+
+    }
 
 }
