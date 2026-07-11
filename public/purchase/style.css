@@ -698,3 +698,61 @@ PAYMENT
     font-weight:bold;
 
 }
+
+/*=========================
+PAYMENT
+==========================*/
+
+.payment-card{
+
+    background:#202020;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    margin-top:25px;
+
+}
+
+.payment-method{
+
+    margin-top:25px;
+
+}
+
+.paystack-option{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#282828;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    border:2px solid #D4AF37;
+
+}
+
+.paystack-option strong{
+
+    color:#D4AF37;
+
+    font-size:18px;
+
+}
+
+.payment-note{
+
+    margin-top:25px;
+
+    color:#BBBBBB;
+
+    font-size:14px;
+
+}

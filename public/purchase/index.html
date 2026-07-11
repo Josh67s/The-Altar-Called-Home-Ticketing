@@ -379,49 +379,101 @@
 
     <div class="payment-card">
 
-        <h3>
-
-            Order Summary
-
-        </h3>
+        <h3>Order Summary</h3>
 
         <div class="review-row">
 
-            <span>Order Number</span>
+    <span>Reference</span>
 
-            <strong id="paymentOrderNumber"></strong>
+    <strong id="paymentReference"></strong>
+
+</div>
+
+        <div class="review-row">
+
+            <span>Ticket</span>
+
+            <strong id="paymentTicket"></strong>
 
         </div>
 
         <div class="review-row">
 
-            <span>Total Amount</span>
+            <span>Quantity</span>
 
-            <strong id="paymentAmount"></strong>
+            <strong id="paymentQuantity"></strong>
 
         </div>
 
         <div class="review-row">
 
-            <span>Status</span>
+            <span>Subtotal</span>
 
-            <strong id="paymentStatus">
+            <strong id="paymentSubtotal"></strong>
 
-                Awaiting Payment
+        </div>
 
-            </strong>
+        <div class="review-row">
+
+            <span>Service Fee</span>
+
+            <strong id="paymentServiceFee"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Grand Total</span>
+
+            <strong id="paymentTotal"></strong>
 
         </div>
 
         <hr>
 
-        <button
-            id="payNowBtn"
-            class="primary-btn">
+        <h3>
 
-            Pay with Paystack
+            Payment Method
 
-        </button>
+        </h3>
+
+    <div class="payment-method">
+
+    <div class="paystack-option">
+
+        <div>
+
+            <strong>
+
+                Paystack
+
+            </strong>
+
+            <br>
+
+            <small>
+
+                Cards • Bank Transfer • USSD • Bank Account
+
+            </small>
+
+        </div>
+
+        <span>
+
+            ✔
+
+        </span>
+
+    </div>
+
+</div>
+
+        <p class="payment-note">
+
+            🔒 Your payment is securely processed through Paystack.
+
+        </p>
 
     </div>
 
@@ -432,6 +484,14 @@
             class="secondary-btn">
 
             ← Back
+
+        </button>
+
+        <button
+            id="payNowBtn"
+            class="primary-btn">
+
+            Pay ₦0
 
         </button>
 

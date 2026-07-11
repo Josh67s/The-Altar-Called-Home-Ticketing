@@ -160,6 +160,7 @@ async function saveOrder(){
         );
 
         order.payment.firestoreId = docRef.id;
+        order.payment.reference = docRef.id;
 
         console.log("Order Saved:",docRef.id);
 
@@ -430,7 +431,31 @@ document.getElementById("reviewPhone").textContent =
 
 }
 
+function populatePayment(){
 
+    document.getElementById("paymentTicket").textContent =
+        order.ticket.type.charAt(0).toUpperCase() +
+        order.ticket.type.slice(1);
+
+        document.getElementById("paymentReference").textContent =
+    order.payment.reference;
+
+    document.getElementById("paymentQuantity").textContent =
+        order.ticket.quantity;
+
+    document.getElementById("paymentSubtotal").textContent =
+        "₦" + order.totals.subtotal.toLocaleString();
+
+    document.getElementById("paymentServiceFee").textContent =
+        "₦" + order.totals.serviceFee.toLocaleString();
+
+    document.getElementById("paymentTotal").textContent =
+        "₦" + order.totals.total.toLocaleString();
+
+    document.getElementById("payNowBtn").textContent =
+        `Pay ₦${order.totals.total.toLocaleString()}`
+
+}
 
 const attendeeBack =
     document.getElementById("attendeeBack");
@@ -476,6 +501,8 @@ reviewContinue.addEventListener("click", async ()=>{
 
     }
 
+    populatePayment();
+
     showStep(6);
 
 });
@@ -492,28 +519,4 @@ paymentBack.addEventListener("click",()=>{
 
 });
 
-reviewContinue.addEventListener("click",()=>{
 
-    generateOrderNumber();
-
-    showStep(6);
-
-});
-
-function generateOrderNumber(){
-
-    const orderNumber =
-        "TACH-" +
-        Date.now();
-
-    order.payment.reference =
-        orderNumber;
-
-    document.getElementById("paymentOrderNumber").textContent =
-        orderNumber;
-
-    document.getElementById("paymentAmount").textContent =
-        "₦" +
-        order.totals.total.toLocaleString();
-
-}
