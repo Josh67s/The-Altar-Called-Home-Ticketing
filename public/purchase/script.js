@@ -1,4 +1,14 @@
-import { db } from "../js/firebase-config.js";
+import {
+
+    db,
+
+    collection,
+
+    addDoc,
+
+    serverTimestamp
+
+} from "../js/firebase-config.js";
 console.log("Firebase Connected!");
 
 console.log(db);
@@ -108,16 +118,66 @@ const order = {
     },
 
     payment:{
-        
-        status:"Pending",
 
-        reference:null,
+    status:"Pending",
 
-        firestoreId:null
+    reference:null,
+
+    firestoreId:null,
+
+    gateway:"Paystack",
+
+    paidAt:null
+
+}
+
+};
+
+async function saveOrder(){
+
+    try{
+
+        const docRef = await addDoc(
+
+            collection(db,"orders"),
+
+            {
+
+                ticket:order.ticket,
+
+                buyer:order.buyer,
+
+                attendees:order.attendees,
+
+                totals:order.totals,
+
+                payment:order.payment,
+
+                createdAt:serverTimestamp()
+
+            }
+
+        );
+
+        order.payment.firestoreId = docRef.id;
+
+        console.log("Order Saved:",docRef.id);
+
+        return docRef.id;
 
     }
 
-};
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to save order.");
+
+        return null;
+
+    }
+
+}
 
 function updateSummary(){
 
@@ -406,7 +466,15 @@ reviewBack.addEventListener("click",()=>{
 
 });
 
-reviewContinue.addEventListener("click",()=>{
+reviewContinue.addEventListener("click", async ()=>{
+
+    const firestoreId = await saveOrder();
+
+    if(!firestoreId){
+
+        return;
+
+    }
 
     showStep(6);
 
