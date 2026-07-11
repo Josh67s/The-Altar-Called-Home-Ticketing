@@ -101,6 +101,10 @@ cards.forEach(card=>{
 
 purchase.price = prices[purchase.ticket];
 
+order.ticket.type = purchase.ticket;
+
+order.ticket.price = purchase.price;
+
         updateSummary();
 
         showStep(2);
@@ -113,6 +117,8 @@ plusBtn.addEventListener("click",()=>{
 
     purchase.quantity++;
 
+    order.ticket.quantity = purchase.quantity;
+
     updateSummary();
 
 });
@@ -122,6 +128,8 @@ minusBtn.addEventListener("click",()=>{
     if(purchase.quantity>1){
 
         purchase.quantity--;
+
+        order.ticket.quantity = purchase.quantity;
 
         updateSummary();
 
@@ -221,11 +229,52 @@ buyerContinue.addEventListener("click", () => {
 
     }
 
+    order.buyer.name = buyerName;
+
+order.buyer.email = buyerEmail;
+
+order.buyer.phone = buyerPhone;
+
     showStep(4);
 
 generateAttendeeForms();
 
 });
+
+function saveAttendees(){
+
+    order.attendees = [];
+
+    const attendeeCards =
+        document.querySelectorAll(".attendee-card");
+
+    attendeeCards.forEach(card=>{
+
+        order.attendees.push({
+
+            name:
+                card.querySelector(".attendee-name").value,
+
+            email:
+                card.querySelector(".attendee-email").value,
+
+            phone:
+                card.querySelector(".attendee-phone").value
+
+        });
+
+    });
+
+    order.totals.subtotal =
+    order.ticket.price * order.ticket.quantity;
+
+order.totals.serviceFee = 0;
+
+order.totals.total =
+    order.totals.subtotal +
+    order.totals.serviceFee;
+
+}
 
 function populateReview(){
 
@@ -239,56 +288,51 @@ function populateReview(){
     document.getElementById("reviewQuantity").textContent =
         purchase.quantity;
 
+        document.getElementById("reviewSubtotal").textContent =
+    "₦" + order.totals.subtotal.toLocaleString();
+
+document.getElementById("reviewServiceFee").textContent =
+    "₦" + order.totals.serviceFee.toLocaleString();
+
     document.getElementById("reviewTotal").textContent =
-        "₦" + (purchase.price * purchase.quantity).toLocaleString();
+"₦" + order.totals.total.toLocaleString();
 
     document.getElementById("reviewBuyer").textContent =
-        document.getElementById("buyerName").value;
+    order.buyer.name;
 
-    document.getElementById("reviewEmail").textContent =
-        document.getElementById("buyerEmail").value;
+document.getElementById("reviewEmail").textContent =
+    order.buyer.email;
 
-    document.getElementById("reviewPhone").textContent =
-        document.getElementById("buyerPhone").value;
+document.getElementById("reviewPhone").textContent =
+    order.buyer.phone;
 
     const attendeeList =
         document.getElementById("reviewAttendees");
 
     attendeeList.innerHTML = "";
 
-    const attendeeCards =
-        document.querySelectorAll(".attendee-card");
+    order.attendees.forEach((attendee,index)=>{
 
-    attendeeCards.forEach((card,index)=>{
-
-        const name =
-            card.querySelector(".attendee-name").value;
-
-            const email =
-        card.querySelector(".attendee-email").value;
-
-    const phone =
-        card.querySelector(".attendee-phone").value;
-
-        attendeeList.innerHTML += `
+    attendeeList.innerHTML += `
 
         <div class="review-attendee">
 
             <strong>Attendee ${index+1}</strong>
 
-            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Name:</strong> ${attendee.name}</p>
 
-            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Email:</strong> ${attendee.email}</p>
 
-            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Phone:</strong> ${attendee.phone}</p>
 
         </div>
 
     `;
 
-    });
+});
 
 }
+
 
 const order = {
 
@@ -350,7 +394,9 @@ attendeeBack.addEventListener("click", () => {
 
 });
 
-attendeeContinue.addEventListener("click", () => {
+attendeeContinue.addEventListener("click",()=>{
+
+    saveAttendees();
 
     populateReview();
 
