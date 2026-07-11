@@ -1,3 +1,7 @@
+import { db } from "../js/firebase-config.js";
+console.log("Firebase Connected!");
+
+console.log(db);
 /*==================================
 STEP WIZARD
 ==================================*/
@@ -57,15 +61,7 @@ function showStep(stepNumber){
 
 }
 
-const purchase = {
 
-    ticket: null,
-
-    price: 0,
-
-    quantity: 1
-
-};
 
 const prices = {
 
@@ -77,15 +73,64 @@ const prices = {
 
 };
 
+const order = {
+
+    ticket:{
+
+        type:null,
+
+        price:0,
+
+        quantity:1
+
+    },
+
+    buyer:{
+
+        name:"",
+
+        email:"",
+
+        phone:""
+
+    },
+
+    attendees:[],
+
+    totals:{
+
+        subtotal:0,
+
+        serviceFee:0,
+
+        total:0
+
+    },
+
+    payment:{
+        
+        status:"Pending",
+
+        reference:null,
+
+        firestoreId:null
+
+    }
+
+};
+
 function updateSummary(){
 
-    quantityText.textContent = purchase.quantity;
+    quantityText.textContent = order.ticket.quantity;
 
     ticketPrice.textContent =
-    "₦" + purchase.price.toLocaleString();
+    "₦" + order.ticket.price.toLocaleString();
 
     totalPrice.textContent =
-    "₦" + (purchase.price * purchase.quantity).toLocaleString();
+    "₦" + (
+            order.ticket.price *
+            order.ticket.quantity
+        ).toLocaleString();
 
 }
 
@@ -97,13 +142,9 @@ cards.forEach(card=>{
 
         card.classList.add("selected");
 
-        purchase.ticket = card.dataset.ticket;
+    order.ticket.type = card.dataset.ticket;
 
-purchase.price = prices[purchase.ticket];
-
-order.ticket.type = purchase.ticket;
-
-order.ticket.price = purchase.price;
+order.ticket.price = prices[order.ticket.type];
 
         updateSummary();
 
@@ -115,9 +156,7 @@ order.ticket.price = purchase.price;
 
 plusBtn.addEventListener("click",()=>{
 
-    purchase.quantity++;
-
-    order.ticket.quantity = purchase.quantity;
+    order.ticket.quantity++;
 
     updateSummary();
 
@@ -125,11 +164,9 @@ plusBtn.addEventListener("click",()=>{
 
 minusBtn.addEventListener("click",()=>{
 
-    if(purchase.quantity>1){
+    if(order.ticket.quantity > 1){
 
-        purchase.quantity--;
-
-        order.ticket.quantity = purchase.quantity;
+        order.ticket.quantity--;
 
         updateSummary();
 
@@ -143,7 +180,7 @@ function generateAttendeeForms(){
 
     container.innerHTML="";
 
-    for(let i=1;i<=purchase.quantity;i++){
+    for(let i=1;i<=order.ticket.quantity;i++){
 
         container.innerHTML += `
 
@@ -279,14 +316,14 @@ order.totals.total =
 function populateReview(){
 
     document.getElementById("reviewTicket").textContent =
-        purchase.ticket.charAt(0).toUpperCase() +
-        purchase.ticket.slice(1);
+        order.ticket.type.charAt(0).toUpperCase() +
+        order.ticket.type.slice(1);
 
     document.getElementById("reviewPrice").textContent =
-        "₦" + purchase.price.toLocaleString();
+        "₦" + order.ticket.price.toLocaleString();
 
     document.getElementById("reviewQuantity").textContent =
-        purchase.quantity;
+        order.ticket.quantity;
 
         document.getElementById("reviewSubtotal").textContent =
     "₦" + order.totals.subtotal.toLocaleString();
@@ -334,53 +371,6 @@ document.getElementById("reviewPhone").textContent =
 }
 
 
-const order = {
-
-    ticket:{
-
-        type:"",
-
-        price:0,
-
-        quantity:1
-
-    },
-
-    buyer:{
-
-        name:"",
-
-        email:"",
-
-        phone:""
-
-    },
-
-    attendees:[],
-
-    totals:{
-
-        subtotal:0,
-
-        serviceFee:0,
-
-        total:0
-
-    },
-
-    payment:{
-
-        reference:"",
-
-        status:"Pending",
-
-        method:""
-
-    },
-
-    ticketWallet:[]
-
-};
 
 const attendeeBack =
     document.getElementById("attendeeBack");
@@ -421,3 +411,41 @@ reviewContinue.addEventListener("click",()=>{
     showStep(6);
 
 });
+
+const paymentBack =
+    document.getElementById("paymentBack");
+
+const payNowBtn =
+    document.getElementById("payNowBtn");
+
+paymentBack.addEventListener("click",()=>{
+
+    showStep(5);
+
+});
+
+reviewContinue.addEventListener("click",()=>{
+
+    generateOrderNumber();
+
+    showStep(6);
+
+});
+
+function generateOrderNumber(){
+
+    const orderNumber =
+        "TACH-" +
+        Date.now();
+
+    order.payment.reference =
+        orderNumber;
+
+    document.getElementById("paymentOrderNumber").textContent =
+        orderNumber;
+
+    document.getElementById("paymentAmount").textContent =
+        "₦" +
+        order.totals.total.toLocaleString();
+
+}

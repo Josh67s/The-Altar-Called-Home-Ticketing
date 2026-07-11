@@ -254,7 +254,7 @@
         Review Your Order
 
     </h2>
-    
+
     <div class="review-row">
 
             <span>Ticket Type</span>
@@ -369,11 +369,81 @@
 
 </div>
 
+<div class="step-panel" id="step6">
+
+    <h2 class="section-heading">
+
+        Payment
+
+    </h2>
+
+    <div class="payment-card">
+
+        <h3>
+
+            Order Summary
+
+        </h3>
+
+        <div class="review-row">
+
+            <span>Order Number</span>
+
+            <strong id="paymentOrderNumber"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Total Amount</span>
+
+            <strong id="paymentAmount"></strong>
+
+        </div>
+
+        <div class="review-row">
+
+            <span>Status</span>
+
+            <strong id="paymentStatus">
+
+                Awaiting Payment
+
+            </strong>
+
+        </div>
+
+        <hr>
+
+        <button
+            id="payNowBtn"
+            class="primary-btn">
+
+            Pay with Paystack
+
+        </button>
+
+    </div>
+
+    <div class="actions navigation-buttons">
+
+        <button
+            id="paymentBack"
+            class="secondary-btn">
+
+            ← Back
+
+        </button>
+
+    </div>
+
+</div>
+
 </div> <!---END OF CONTENT----->
 </div> <!---END OF WIZARD------>
 
 
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 
 </body>
 
