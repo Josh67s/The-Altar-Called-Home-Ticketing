@@ -517,6 +517,83 @@ paymentBack.addEventListener("click",()=>{
 
     showStep(5);
 
+
 });
 
+payNowBtn.addEventListener("click",()=>{
 
+    startPayment();
+
+});
+
+function startPayment(){
+
+    const handler = PaystackPop.setup({
+
+        key: "pk_test_548002a8e57df2518abb4b105557b055ff916ffe",
+
+        email: order.buyer.email,
+
+        amount: order.totals.total * 100,
+
+        ref: order.payment.reference,
+
+        currency: "NGN",
+
+        metadata:{
+
+            custom_fields:[
+
+                {
+
+                    display_name:"Buyer Name",
+
+                    variable_name:"buyer_name",
+
+                    value:order.buyer.name
+
+                },
+
+                {
+
+                    display_name:"Ticket Type",
+
+                    variable_name:"ticket_type",
+
+                    value:order.ticket.type
+
+                },
+
+                {
+
+                    display_name:"Quantity",
+
+                    variable_name:"quantity",
+
+                    value:order.ticket.quantity
+
+                }
+
+            ]
+
+        },
+
+        callback:function(response){
+
+            console.log("Payment Successful");
+
+            console.log(response);
+
+        },
+
+        onClose:function(){
+
+            alert("Payment window closed.");
+
+        }
+
+    });
+
+    handler.openIframe();
+
+}
