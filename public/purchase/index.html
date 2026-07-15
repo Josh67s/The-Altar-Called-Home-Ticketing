@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <head>
 
@@ -499,10 +500,164 @@
 
 </div>
 
+<div class="step-panel" id="step7">
+
+    <div class="success-message">
+
+        ✓ Payment Successful
+
+    </div>
+
+    <div class="digital-ticket">
+
+        <!-- HERO -->
+
+        <div class="ticket-hero">
+
+            <div class="hero-overlay">
+
+                <h1>
+                    THE ALTAR CALLED HOME
+                </h1>
+
+                <p>
+                    Official Movie Premiere Ticket
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CATEGORY BADGE -->
+
+        <div class="ticket-category">
+
+            <span id="ticketCategoryBadge"
+                class="ticket-category-badge">
+                </span>
+
+        </div>
+
+        <!-- INFORMATION -->
+
+        <div class="ticket-info">
+
+            <div class="info-card">
+
+                <small>Ticket Number</small>
+
+                <h2 id="ticketNumberDisplay"></h2>
+
+            </div>
+
+            <div class="info-card">
+
+                <small>Buyer</small>
+
+                <h3 id="ticketBuyerDisplay"></h3>
+
+            </div>
+
+            <div class="info-grid">
+
+                <div class="info-card">
+
+                    <small>Ticket Type</small>
+
+                    <h3 id="ticketTypeDisplay"></h3>
+
+                </div>
+
+                <div class="info-card">
+
+                    <small>Quantity</small>
+
+                    <h3 id="ticketQuantityDisplay"></h3>
+
+                </div>
+
+            </div>
+
+            <div class="info-card">
+
+                <small>Status</small>
+
+                <div class="ticket-status">
+
+                    <span class="status-dot"></span>
+
+                    <strong>
+
+                        VALID
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DIVIDER -->
+
+        <div class="ticket-divider"></div>
+
+        <!-- QR -->
+
+        <div class="ticket-qr-section">
+
+            <div id="qrcode"></div>
+
+            <p>
+
+                Present this QR Code at the entrance.
+
+            </p>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="ticket-buttons">
+
+            <button id="downloadTicketBtn">
+
+                ⬇ DOWNLOAD E-TICKET
+
+            </button>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="ticket-footer">
+
+            <strong>
+
+                Amazing Crew TV Production
+
+            </strong>
+
+            <br>
+
+            THE ALTAR CALLED HOME PREMIERE
+
+            <br>
+
+            © 2026
+
+        </div>
+
+    </div>
+
+</div>
+
 </div> <!---END OF CONTENT----->
 </div> <!---END OF WIZARD------>
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script type="module" src="script.js"></script>
 
 </body>

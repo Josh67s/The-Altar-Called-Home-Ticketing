@@ -1,17 +1,42 @@
 import {
-
     db,
-
+    functions,
+    httpsCallable,
     collection,
-
-    addDoc,
-
+    doc,
+    setDoc,
     serverTimestamp
-
 } from "../js/firebase-config.js";
+
 console.log("Firebase Connected!");
 
 console.log(db);
+
+async function testCloudFunction(){
+
+    try{
+
+        const verifyPayment =
+            httpsCallable(functions, "verifyPayment");
+
+        const result =
+            await verifyPayment({
+
+                reference: "TEST-12345"
+
+            });
+
+        console.log(result.data);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
 /*==================================
 STEP WIZARD
 ==================================*/
@@ -38,6 +63,8 @@ const plusBtn = document.getElementById("plusBtn");
 const minusBtn = document.getElementById("minusBtn");
 
 const quantityContinue = document.getElementById("quantityContinue");
+
+const downloadTicketBtn = document.getElementById("downloadTicketBtn");
 
 
 /*==================================
@@ -133,38 +160,51 @@ const order = {
 
 };
 
+function generatePaymentReference(){
+
+    if(order.payment.reference){
+
+        return;
+
+    }
+
+    order.payment.reference =
+        "TACH-" + Date.now();
+
+}
+
 async function saveOrder(){
 
     try{
 
-        const docRef = await addDoc(
+        const orderRef =
+            doc(collection(db,"orders"));
 
-            collection(db,"orders"),
+        order.payment.firestoreId =
+            orderRef.id;
 
-            {
+        await setDoc(orderRef,{
 
-                ticket:order.ticket,
+            ticket:order.ticket,
 
-                buyer:order.buyer,
+            buyer:order.buyer,
 
-                attendees:order.attendees,
+            attendees:order.attendees,
 
-                totals:order.totals,
+            totals:order.totals,
 
-                payment:order.payment,
+            payment:order.payment,
 
-                createdAt:serverTimestamp()
+            createdAt:serverTimestamp()
 
-            }
+        });
 
+        console.log(
+            "Order Saved:",
+            orderRef.id
         );
 
-        order.payment.firestoreId = docRef.id;
-        order.payment.reference = docRef.id;
-
-        console.log("Order Saved:",docRef.id);
-
-        return docRef.id;
+        return orderRef.id;
 
     }
 
@@ -493,6 +533,8 @@ reviewBack.addEventListener("click",()=>{
 
 reviewContinue.addEventListener("click", async ()=>{
 
+    generatePaymentReference();
+
     const firestoreId = await saveOrder();
 
     if(!firestoreId){
@@ -526,74 +568,179 @@ payNowBtn.addEventListener("click",()=>{
 
 });
 
+
 function startPayment(){
+    const handler = PaystackPop.setup({ key: "pk_test_548002a8e57df2518abb4b105557b055ff916ffe", 
+        email: order.buyer.email, 
+        amount: order.totals.total * 100, 
+        ref: order.payment.reference, 
+        currency: "NGN", 
+        metadata:{ 
+            custom_fields:[ 
+                { display_name:"Buyer Name", 
+                    variable_name:"buyer_name", 
+                    value:order.buyer.name }, 
+                    { display_name:"Ticket Type", 
+                        variable_name:"ticket_type", 
+                        value:order.ticket.type }, 
+                        { display_name:"Quantity", 
+                            variable_name:"quantity", 
+                            value:order.ticket.quantity } ] },
 
-    const handler = PaystackPop.setup({
+callback: function(response){
 
-        key: "pk_test_548002a8e57df2518abb4b105557b055ff916ffe",
+    verifyPaymentOnServer(response);
 
-        email: order.buyer.email,
+},
 
-        amount: order.totals.total * 100,
-
-        ref: order.payment.reference,
-
-        currency: "NGN",
-
-        metadata:{
-
-            custom_fields:[
-
-                {
-
-                    display_name:"Buyer Name",
-
-                    variable_name:"buyer_name",
-
-                    value:order.buyer.name
-
-                },
-
-                {
-
-                    display_name:"Ticket Type",
-
-                    variable_name:"ticket_type",
-
-                    value:order.ticket.type
-
-                },
-
-                {
-
-                    display_name:"Quantity",
-
-                    variable_name:"quantity",
-
-                    value:order.ticket.quantity
-
-                }
-
-            ]
-
-        },
-
-        callback:function(response){
-
-            console.log("Payment Successful");
-
-            console.log(response);
-
-        },
-
-        onClose:function(){
+onClose:function(){
 
             alert("Payment window closed.");
 
         }
 
-    });
+  });
 
-    handler.openIframe();
+handler.openIframe();
 
 }
+
+async function verifyPaymentOnServer(response){
+
+    try{
+
+        const verifyPayment =
+            httpsCallable(functions, "verifyPayment");
+
+        const result =
+            await verifyPayment({
+
+                reference: response.reference
+
+            });
+
+        console.log("Verification Result:");
+console.log(result.data);
+
+order.payment.firestoreId =
+    result.data.orderId;
+
+order.ticket.ticketNumber =
+    result.data.ticketNumber;
+
+
+    populateDigitalTicket();
+
+showStep(7);
+
+alert(
+    `Payment verified!\n\nTicket Number:\n${result.data.ticketNumber}`
+);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Payment verification failed.");
+
+    }
+
+}
+        
+
+function populateDigitalTicket(){
+
+    document.getElementById("ticketNumberDisplay").textContent =
+        order.ticket.ticketNumber;
+
+    document.getElementById("ticketBuyerDisplay").textContent =
+        order.buyer.name;
+
+    document.getElementById("ticketTypeDisplay").textContent =
+    order.ticket.type.charAt(0).toUpperCase() +
+    order.ticket.type.slice(1);
+
+    document.getElementById("ticketQuantityDisplay").textContent =
+        order.ticket.quantity;
+
+        const badge =
+    document.getElementById("ticketCategoryBadge");
+
+badge.textContent =
+    order.ticket.type.toUpperCase();
+
+badge.className = "ticket-category-badge";
+
+badge.classList.add(
+    "badge-" + order.ticket.type.toLowerCase()
+);
+
+const qrContainer =
+    document.getElementById("qrcode");
+
+    console.log(order.payment.firestoreId);
+
+qrContainer.innerHTML = "";
+
+const verificationUrl =
+
+    `${window.location.origin}/verify.html?id=${order.payment.firestoreId}`;
+
+new QRCode(qrContainer,{
+
+    text: verificationUrl,
+
+    width:180,
+
+    height:180
+
+});
+
+}
+
+downloadTicketBtn.addEventListener("click", downloadTicket);
+
+async function downloadTicket(){
+
+    const ticket =
+        document.querySelector(".digital-ticket");
+
+    try{
+
+        const canvas = await html2canvas(ticket,{
+
+            scale:3,
+
+            useCORS:true,
+
+            backgroundColor:"#111111"
+
+        });
+
+        const image =
+            canvas.toDataURL("image/png");
+
+        const link =
+            document.createElement("a");
+
+        link.href = image;
+
+        link.download =
+            `${order.ticket.ticketNumber}.png`;
+
+        link.click();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to download ticket.");
+
+    }
+
+}
+

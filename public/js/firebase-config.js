@@ -2,16 +2,21 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
 import {
-
     getFirestore,
-
     collection,
-
-    addDoc,
-
+    doc,
+    setDoc,
+    getDoc,
+    getDocs,
+    query,
+    where,
     serverTimestamp
-
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import {
+    getFunctions,
+    httpsCallable
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-functions.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -36,15 +41,19 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 const db = getFirestore(app);
 
+const functions = getFunctions(app);
+
 // Export Firestore
 export {
-
     db,
-
+    functions,
+    httpsCallable,
     collection,
-
-    addDoc,
-
+    doc,
+    setDoc,
+    getDoc,
+    getDocs,
+    query,
+    where,
     serverTimestamp
-
 };
