@@ -18,6 +18,18 @@ import {
     httpsCallable
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-functions.js";
 
+import {
+
+    getAuth,
+
+    onAuthStateChanged,
+
+    signInWithEmailAndPassword,
+
+    signOut
+
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
 // Firebase configuration
 const firebaseConfig = {
 
@@ -43,11 +55,18 @@ const db = getFirestore(app);
 
 const functions = getFunctions(app);
 
+const auth = getAuth(app);
+
 // Export Firestore
 export {
+
     db,
+    auth,
     functions,
     httpsCallable,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
     collection,
     doc,
     setDoc,
@@ -56,4 +75,5 @@ export {
     query,
     where,
     serverTimestamp
+
 };
