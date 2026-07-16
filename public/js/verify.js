@@ -1,5 +1,3 @@
-console.log("=== VERIFY.JS LOADED ===");
-console.log("Module URL:", import.meta.url);
 import {
 
     db,
@@ -20,7 +18,13 @@ import {
 
     getDocs
 
-} from "../js/firebase-config.js";
+} from "./firebase-config.js";
+
+console.log("================================");
+
+console.log("TACH Verification System v2");
+
+console.log("================================");
 
 const params =
     new URLSearchParams(window.location.search);
@@ -31,19 +35,48 @@ const id =
 const card =
     document.getElementById("verificationCard");
 
-loadTicket();
+initialize();
+
+async function initialize(){
+
+    try{
+
+        await loadTicket();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showError(
+
+            "Unable to load ticket.",
+
+            "Please check your internet connection."
+
+        );
+
+    }
+
+}
 
 async function loadTicket(){
 
     if(!id){
 
-        card.innerHTML = "<h2>Invalid QR Code</h2>";
+        showError(
+
+            "Invalid QR Code",
+
+            "The QR Code does not contain a valid ticket."
+
+        );
 
         return;
 
     }
 
-    // Load the order
     const orderRef =
         doc(db,"orders",id);
 
@@ -52,8 +85,13 @@ async function loadTicket(){
 
     if(!orderSnap.exists()){
 
-        card.innerHTML =
-            "<h2>Order Not Found</h2>";
+        showError(
+
+            "Order Not Found",
+
+            "This order does not exist."
+
+        );
 
         return;
 
@@ -62,8 +100,8 @@ async function loadTicket(){
     const order =
         orderSnap.data();
 
-    // Find the ticket belonging to this order
-    const q =
+    const ticketQuery =
+
         query(
 
             collection(db,"tickets"),
@@ -73,12 +111,17 @@ async function loadTicket(){
         );
 
     const ticketSnap =
-        await getDocs(q);
+        await getDocs(ticketQuery);
 
     if(ticketSnap.empty){
 
-        card.innerHTML =
-            "<h2>Ticket Not Found</h2>";
+        showError(
+
+            "Ticket Not Found",
+
+            "No ticket belongs to this order."
+
+        );
 
         return;
 
@@ -87,135 +130,312 @@ async function loadTicket(){
     const ticket =
         ticketSnap.docs[0].data();
 
-    displayTicket(order,ticket);
+    renderTicket(
+
+        order,
+
+        ticket
+
+    );
 
 }
 
-function displayTicket(order,ticket){
+function capitalize(text){
 
-    console.log("ORDER:");
-console.log(order);
+    if(!text) return "";
 
-console.log("TICKET:");
-console.log(ticket);
+    return text.charAt(0).toUpperCase() +
 
-    const badgeColor =
-        ticket.used ? "#dc2626" : "#16a34a";
+           text.slice(1);
 
-    const badgeText =
-        ticket.used ? "USED" : "VALID";
+}
+
+function formatDate(timestamp){
+
+    if(!timestamp) return "-";
+
+    const date =
+        timestamp.toDate();
+
+    return date.toLocaleString();
+
+}
+
+function showError(title,message){
 
     card.innerHTML = `
 
-        <h2>${ticket.ticketNumber}</h2>
+<div class="error">
 
-        <p>
+<h2>
 
-            <strong>Buyer:</strong>
+${title}
 
-            ${order.buyer.name}
+</h2>
 
-        </p>
+<p>
 
-        <p>
+${message}
 
-            <strong>Ticket:</strong>
+</p>
 
-            ${order.ticket.type}
+</div>
 
-        </p>
+`;
 
-        <p>
+}
 
-            <strong>Quantity:</strong>
+function renderTicket(order, ticket){
 
-            ${order.ticket.quantity}
+    const used =
+        ticket.used === true;
 
-        </p>
+    card.innerHTML = `
 
-        <p>
+<div class="verify-header">
 
-            <strong>Payment:</strong>
+    <h1>
 
-            ${order.payment.status}
+        THE ALTAR CALLED HOME
 
-        </p>
+    </h1>
 
-        <p>
+    <p>
 
-            <strong>Status:</strong>
+        Official Premiere Ticket Verification
 
-            <span style="
-                color:white;
-                background:${badgeColor};
-                padding:6px 12px;
-                border-radius:20px;
-                font-weight:bold;
-            ">
+    </p>
 
-                ${badgeText}
+</div>
 
-            </span>
+<div class="ticket-number">
 
-        </p>
+    ${ticket.ticketNumber}
 
-    `;
+</div>
 
- console.log("ticket.used =", ticket.used);
+<div class="status-wrap">
 
-if(ticket.used === true){
+    <span class="status ${used ? "used" : "valid"}">
 
-    }else{
+        ${used ? "🔴 USED" : "🟢 VALID"}
 
-        card.innerHTML += `
+    </span>
 
-            <br>
+</div>
 
-            <button id="checkInBtn">
+<div class="details">
 
-                Admit Guest
+    ${createRow(
 
-            </button>
+        "👤 Buyer",
 
-        `;
+        order.buyer.name
 
-        document
-            .getElementById("checkInBtn")
-            .addEventListener(
+    )}
 
-                "click",
+    ${createRow(
 
-                checkInGuest
+        "🎟 Ticket",
 
-            );
+        capitalize(order.ticket.type)
+
+    )}
+
+    ${createRow(
+
+        "👥 Quantity",
+
+        order.ticket.quantity
+
+    )}
+
+    ${createRow(
+
+        "💳 Payment",
+
+        "<span class='paid'>✔ Paid</span>"
+
+    )}
+
+    ${used
+
+        ?
+
+        usedSection(ticket)
+
+        :
+
+        buttonSection()
+
+    }
+
+    <div class="footer">
+
+        Amazing Crew TV Production
+
+    </div>
+
+</div>
+
+`;
+
+    if(!used){
+
+        attachButton();
 
     }
 
 }
 
+function createRow(label,value){
+
+    return `
+
+<div class="row">
+
+    <span>
+
+        ${label}
+
+    </span>
+
+    <strong>
+
+        ${value}
+
+    </strong>
+
+</div>
+
+`;
+
+}
+
+function buttonSection(){
+
+    return `
+
+<button
+
+    id="checkInBtn"
+
+    class="checkin-btn">
+
+    ✓ Admit Guest
+
+</button>
+
+`;
+
+}
+
+function usedSection(ticket){
+
+    return `
+
+<div class="used-box">
+
+    <h3>
+
+        Guest Already Checked In
+
+    </h3>
+
+    <p>
+
+        <strong>Checked In By</strong>
+
+        <br>
+
+        ${ticket.checkedInBy || "-"}
+
+    </p>
+
+    <br>
+
+    <p>
+
+        <strong>Checked In At</strong>
+
+        <br>
+
+        ${formatDate(ticket.checkedInAt)}
+
+    </p>
+
+</div>
+
+`;
+
+}
+
+function attachButton(){
+
+    const button =
+
+        document.getElementById(
+
+            "checkInBtn"
+
+        );
+
+    if(!button) return;
+
+    button.addEventListener(
+
+        "click",
+
+        checkInGuest
+
+    );
+
+}
+
 async function checkInGuest(){
 
+    const button =
+        document.getElementById("checkInBtn");
+
+    button.disabled = true;
+
+    button.innerHTML = "Checking In...";
+
     try{
+
         const checkIn =
+
             httpsCallable(
+
                 functions,
+
                 "checkInTicket"
+
             );
 
         const result =
+
             await checkIn({
 
-                orderId: id,
+                orderId:id,
 
-                usher: "Gate 1"
+                usher:"Gate 1"
 
             });
 
         console.log(result.data);
 
-        alert("Guest admitted successfully!");
+        button.innerHTML =
+            "✓ Guest Admitted";
 
-        location.reload();
+        button.style.background =
+            "#0f9d58";
+
+        setTimeout(()=>{
+
+            location.reload();
+
+        },1200);
 
     }
 
@@ -223,7 +443,16 @@ async function checkInGuest(){
 
         console.error(error);
 
-        alert(error.message);
+        button.disabled = false;
+
+        button.innerHTML =
+            "✓ Admit Guest";
+
+        alert(
+
+            error.message
+
+        );
 
     }
 
