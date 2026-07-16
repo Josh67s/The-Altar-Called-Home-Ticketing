@@ -1,3 +1,13 @@
+import{
+
+    protectPage
+
+}
+
+from "./auth.js";
+
+protectPage("usher");
+
 import {
 
     db,
