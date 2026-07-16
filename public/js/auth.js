@@ -113,3 +113,21 @@ export function protectPage(requiredRole){
     );
 
 }
+
+export async function logout(){
+
+    try{
+
+        await signOut(auth);
+
+        window.location = "login.html";
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}

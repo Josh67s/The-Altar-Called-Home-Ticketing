@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+TACH Tickets
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="css/tickets.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>
+
+TACH
+
+</h2>
+
+<ul>
+
+<li>
+
+<a href="admin.html">
+
+Dashboard
+
+</a>
+
+</li>
+
+<li class="active">
+
+<a href="tickets.html">
+
+Tickets
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+Orders
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+Staff
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+Reports
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+Settings
+
+</a>
+
+</li>
+
+<li id="logoutBtn">
+
+Logout
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Tickets
+
+</h1>
+
+<p>
+
+Manage all issued tickets.
+
+</p>
+
+</div>
+
+<div class="admin-profile">
+
+<div class="avatar">
+
+🎟
+
+</div>
+
+<div>
+
+<h3 id="adminName">
+
+Loading...
+
+</h3>
+
+<p id="currentDate">
+
+Loading...
+
+</p>
+
+</div>
+
+</div>
+
+</header>
+
+<div class="content">
+
+<div class="toolbar">
+
+<input
+type="text"
+id="searchTicket"
+placeholder="Search ticket number or buyer...">
+
+<select id="statusFilter">
+
+<option value="all">
+
+All Tickets
+
+</option>
+
+<option value="valid">
+
+Valid
+
+</option>
+
+<option value="used">
+
+Used
+
+</option>
+
+</select>
+
+</div>
+
+<table class="ticketsTable">
+
+<thead>
+
+<tr>
+
+<th>
+
+Ticket No.
+
+</th>
+
+<th>
+
+Buyer
+
+</th>
+
+<th>
+
+Type
+
+</th>
+
+<th>
+
+Amount
+
+</th>
+
+<th>
+
+Status
+
+</th>
+
+<th>
+
+Actions
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ticketsBody">
+
+<tr>
+
+<td colspan="6">
+
+Loading tickets...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script
+type="module"
+src="js/tickets.js">
+
+</script>
+
+</body>
+
+</html>

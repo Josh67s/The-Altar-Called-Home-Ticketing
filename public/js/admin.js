@@ -6,17 +6,24 @@
 =========================================
 */
 
-import { protectPage } from "./auth.js";
+import { 
+    protectPage, 
+    logout
+} from "./auth.js";
 
-import {
+import{
 
-    db,
+db,
+functions,
+httpsCallable,
+collection,
+getDocs,
+doc,
+getDoc,
+query,
+where
 
-    collection,
-
-    getDocs
-
-} from "./firebase-config.js";
+}from "./firebase-config.js";
 
 protectPage("admin");
 
@@ -232,7 +239,7 @@ View
 
 window.viewTicket = async(id)=>{
 
-const modal=
+const modal =
 
 document.getElementById(
 
@@ -240,7 +247,7 @@ document.getElementById(
 
 );
 
-const body=
+const body =
 
 document.getElementById(
 
@@ -249,36 +256,93 @@ document.getElementById(
 );
 
 modal.style.display="flex";
+document.body.style.overflow = "hidden";
 
-body.innerHTML="Loading...";
+body.innerHTML="<p>Loading ticket...</p>";
 
-const snapshot=
+try{
 
-await getDocs(
+const orderRef =
 
-collection(db,"orders")
+doc(
+
+db,
+
+"orders",
+
+id
 
 );
 
-let order=null;
+const orderSnap =
 
-snapshot.forEach(doc=>{
+await getDoc(orderRef);
 
-if(doc.id===id){
+if(!orderSnap.exists()){
 
-order=doc.data();
+body.innerHTML=
 
-}
-
-});
-
-if(!order){
-
-body.innerHTML="Ticket not found.";
+"<h3>Order not found.</h3>";
 
 return;
 
 }
+
+const order=
+
+orderSnap.data();
+
+const ticketQuery=
+
+query(
+
+collection(db,"tickets"),
+
+where(
+
+"orderId",
+
+"==",
+
+id
+
+)
+
+);
+
+const ticketSnap=
+
+await getDocs(ticketQuery);
+
+let ticket=null;
+
+if(!ticketSnap.empty){
+
+ticket=
+
+ticketSnap.docs[0].data();
+
+}
+
+const badge=
+
+ticket?.used
+
+?
+
+`<span class="status-used">
+
+USED
+
+</span>`
+
+:
+
+`<span class="status-valid">
+
+VALID
+
+</span>`;
 
 body.innerHTML=`
 
@@ -410,28 +474,230 @@ ${order.payment.status}
 
 </div>
 
+<div class="modal-row">
+
+<span>
+
+Status
+
+</span>
+
+<strong>
+
+${badge}
+
+</strong>
+
+</div>
+
 `;
+
+let qrHtml = "";
+
+if(ticket){
+
+const qrImage = ticket.qrCode ||
+
+"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data="+
+
+encodeURIComponent(
+
+window.location.origin +
+
+"/verify.html?id="+
+
+id
+
+);
+
+qrHtml = `
+
+<div class="qr-section">
+
+<h3>
+
+QR Code
+
+</h3>
+
+<img
+
+src="${qrImage}"
+
+class="ticketQR">
+
+</div>
+
+`;
+
+}
+
+body.innerHTML += `
+
+<div class="modal-actions">
+
+<button
+
+class="secondaryBtn"
+
+onclick="window.printTicket('${id}')">
+
+🖨 Print
+
+</button>
+
+<button
+
+class="secondaryBtn"
+
+onclick="window.downloadTicket('${id}')">
+
+📄 PDF
+
+</button>
+
+<button
+
+class="secondaryBtn"
+
+onclick="window.resendTicket('${id}')">
+
+📧 Email
+
+</button>
+
+</div>
+
+`;
+
+body.innerHTML += qrHtml;
+
+if(ticket){
+
+if(ticket.used){
+
+body.innerHTML += `
+
+<div class="checked-in-box">
+
+✅ Checked in by
+
+<strong>
+
+${ticket.checkedInBy || "Unknown"}
+
+</strong>
+
+</div>
+
+`;
+
+}else{
+
+body.innerHTML += `
+
+<button
+
+class="modal-btn"
+
+onclick="window.admitGuest('${id}')">
+
+Admit Guest
+
+</button>
+
+`;
+
+}
+
+}
+
+}
+
+catch(error){
+
+console.error(error);
+
+body.innerHTML=
+
+"<h3>Error loading ticket.</h3>";
+
+}
 
 };
 
-document
+window.admitGuest = async(orderId)=>{
 
-.getElementById(
+try{
 
-"closeModal"
+const checkIn=
 
-)
+httpsCallable(
 
-.onclick=()=>{
+functions,
 
-document
+"checkInTicket"
 
-.getElementById(
+);
 
-"ticketModal"
+await checkIn({
 
-)
+orderId,
 
-.style.display="none";
+usher:
+
+window.loggedInStaff.name
+
+});
+
+alert(
+
+"Guest admitted successfully."
+
+);
+
+document.getElementById("ticketModal").style.display="none";
+
+document.body.style.overflow = "auto";
+
+await loadStatistics();
+
+await loadRecentOrders();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+};
+
+document.getElementById("closeModal").onclick = ()=>{
+
+document.getElementById("ticketModal").style.display = "none";
+
+document.body.style.overflow = "auto";
+
+};
+
+window.printTicket=()=>{
+
+alert("Coming in the next milestone.");
+
+};
+
+window.downloadTicket=()=>{
+
+alert("Coming in the next milestone.");
+
+};
+
+window.resendTicket=()=>{
+
+alert("Coming in the next milestone.");
 
 };
