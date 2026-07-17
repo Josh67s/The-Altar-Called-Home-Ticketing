@@ -7,6 +7,30 @@ logout
 
 import{
 
+createTicketCard
+
+}from "./components/ticket-card.js";
+
+import{
+
+openModal,
+
+closeModal,
+
+registerModal
+
+}from "./components/modal.js";
+
+import{
+
+generateQRCode
+
+}
+
+from "./components/qr.js";
+
+import{
+
 db,
 collection,
 getDocs
@@ -480,6 +504,8 @@ const modal =
 
 document.getElementById("ticketModal");
 
+registerModal(modal);
+
 const modalBody =
 
 document.getElementById("modalBody");
@@ -516,7 +542,7 @@ document
 
 ()=>{
 
-modal.style.display="none";
+closeModal(modal);
 
 });
 
@@ -532,154 +558,20 @@ t=>t.ticketNumber===ticketNumber
 
 if(!ticket) return;
 
-modalBody.innerHTML = `
+console.log(`${window.location.origin}/verify.html?id=${ticket.orderId}`);
 
-<div class="tach-ticket">
+modalBody.innerHTML =
 
-<div class="ticket-header">
+createTicketCard(ticket);
 
-<div>
+generateQRCode(
 
-<h2>
+"ticketQR",
 
-${ticket.ticketNumber}
+`${window.location.origin}/verify.html?id=${ticket.orderId}`
 
-</h2>
+);
 
-</div>
-
-<div>
-
-<span class="${
-ticket.used ? "badge-used" : "badge-valid"
-}">
-
-${ticket.used ? "USED" : "VALID"}
-
-</span>
-
-</div>
-
-</div>
-
-<hr>
-
-<div class="ticket-grid">
-
-<div>
-
-<label>
-
-Buyer
-
-</label>
-
-<h3>
-
-${ticket.buyer.name}
-
-</h3>
-
-</div>
-
-<div>
-
-<label>
-
-Ticket
-
-</label>
-
-<h3>
-
-${ticket.ticket.type}
-
-</h3>
-
-</div>
-
-<div>
-
-<label>
-
-Email
-
-</label>
-
-<h3>
-
-${ticket.buyer.email}
-
-</h3>
-
-</div>
-
-<div>
-
-<label>
-
-Phone
-
-</label>
-
-<h3>
-
-${ticket.buyer.phone}
-
-</h3>
-
-</div>
-
-<div>
-
-<label>
-
-Amount
-
-</label>
-
-<h3>
-
-₦${Number(ticket.totals.total).toLocaleString()}
-
-</h3>
-
-</div>
-
-</div>
-
-<div class="qrBox">
-
-QR Code Coming Soon
-
-</div>
-
-<div class="ticket-actions">
-
-<button class="greenBtn">
-
-✔ Admit Guest
-
-</button>
-
-<button class="goldBtn">
-
-🖨 Print
-
-</button>
-
-<button class="goldBtn">
-
-📧 Resend Email
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-modal.style.display="flex";
+openModal(modal);
 
 }

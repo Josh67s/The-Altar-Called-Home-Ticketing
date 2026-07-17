@@ -522,23 +522,23 @@ font-weight:bold;
 
 .qrBox{
 
-margin:35px auto;
-
-width:220px;
-
-height:220px;
-
-border:3px dashed gold;
-
 display:flex;
 
 justify-content:center;
 
 align-items:center;
 
+margin:35px auto;
+
+padding:15px;
+
+background:#fff;
+
 border-radius:15px;
 
-font-weight:bold;
+width:max-content;
+
+box-shadow:0 5px 15px rgba(0,0,0,.15);
 
 }
 
@@ -595,5 +595,29 @@ transform:translateY(-2px);
 .goldBtn:hover{
 
 transform:translateY(-2px);
+
+}
+
+#ticketModal{
+
+display:none;
+
+}
+
+#ticketModal.show{
+
+display:flex;
+
+}
+
+.ticketQR{
+
+width:260px;
+
+height:260px;
+
+display:block;
+
+border-radius:8px;
 
 }

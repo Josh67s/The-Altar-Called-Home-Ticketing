@@ -8,6 +8,14 @@ from "./auth.js";
 
 protectPage("usher");
 
+import{
+
+createTicketCard
+
+}
+
+from "./components/ticket-card.js";
+
 import {
 
     db,
