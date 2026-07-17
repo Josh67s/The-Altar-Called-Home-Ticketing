@@ -188,6 +188,64 @@ function renderTable(){
 
     });
 
+    const showingStart =
+
+filteredTickets.length===0
+
+?
+
+0
+
+:
+
+start+1;
+
+const showingEnd =
+
+Math.min(
+
+end,
+
+filteredTickets.length
+
+);
+
+document
+
+.getElementById(
+
+"pageInfo"
+
+)
+
+.textContent =
+
+`Showing ${showingStart}-${showingEnd} of ${filteredTickets.length} tickets`;
+
+document
+
+.getElementById(
+
+"prevBtn"
+
+)
+
+.disabled =
+
+currentPage===1;
+
+document
+
+.getElementById(
+
+"nextBtn"
+
+)
+
+.disabled =
+
+end>=filteredTickets.length;
+
 }
 
 function createRow(ticket){
@@ -218,22 +276,410 @@ function createRow(ticket){
 
             <td>
 
-                <button
+<button
 
-                    class="viewBtn"
+class="viewBtn"
 
-                    data-id="${ticket.orderId}"
+data-ticket="${ticket.ticketNumber}"
 
-                >
+>
 
-                    View
+View
 
-                </button>
+</button>
 
-            </td>
+</td>
 
         </tr>
 
     `;
+
+}
+
+const searchInput =
+
+document.getElementById(
+
+"searchTicket"
+
+);
+
+searchInput.addEventListener(
+
+"input",
+
+searchTickets
+
+);
+
+function searchTickets(){
+
+    filterTickets();
+
+}
+
+const statusFilter =
+
+document.getElementById(
+
+"statusFilter"
+
+);
+
+statusFilter.addEventListener(
+
+"change",
+
+filterTickets
+
+);
+
+function filterTickets(){
+
+    const status =
+
+        statusFilter.value;
+
+    const keyword =
+
+        searchInput.value
+
+        .trim()
+
+        .toLowerCase();
+
+    filteredTickets =
+
+        allTickets.filter(ticket=>{
+
+            const ticketNumber =
+
+                (ticket.ticketNumber || "")
+
+                .toLowerCase();
+
+            const buyer =
+
+                (ticket.buyer?.name || "")
+
+                .toLowerCase();
+
+            const type =
+
+                (ticket.ticket?.type || "")
+
+                .toLowerCase();
+
+            const matchesSearch =
+
+                ticketNumber.includes(keyword)
+
+                ||
+
+                buyer.includes(keyword)
+
+                ||
+
+                type.includes(keyword);
+
+            let matchesStatus = true;
+
+            if(status==="valid"){
+
+                matchesStatus =
+
+                    ticket.used===false;
+
+            }
+
+            if(status==="used"){
+
+                matchesStatus =
+
+                    ticket.used===true;
+
+            }
+
+            return(
+
+                matchesSearch
+
+                &&
+
+                matchesStatus
+
+            );
+
+        });
+
+    currentPage = 1;
+
+    renderTable();
+
+}
+
+document
+
+.getElementById(
+
+"prevBtn"
+
+)
+
+.addEventListener(
+
+"click",
+
+()=>{
+
+if(currentPage>1){
+
+currentPage--;
+
+renderTable();
+
+}
+
+});
+
+document
+
+.getElementById(
+
+"nextBtn"
+
+)
+
+.addEventListener(
+
+"click",
+
+()=>{
+
+const totalPages =
+
+Math.ceil(
+
+filteredTickets.length/
+
+rowsPerPage
+
+);
+
+if(currentPage<totalPages){
+
+currentPage++;
+
+renderTable();
+
+}
+
+});
+
+const modal =
+
+document.getElementById("ticketModal");
+
+const modalBody =
+
+document.getElementById("modalBody");
+
+document.addEventListener(
+
+"click",
+
+async(e)=>{
+
+if(
+
+e.target.classList.contains("viewBtn")
+
+){
+
+const ticketNumber =
+
+e.target.dataset.ticket;
+
+await openTicket(ticketNumber);
+
+}
+
+});
+
+document
+
+.getElementById("closeModal")
+
+.addEventListener(
+
+"click",
+
+()=>{
+
+modal.style.display="none";
+
+});
+
+async function openTicket(ticketNumber){
+
+const ticket =
+
+allTickets.find(
+
+t=>t.ticketNumber===ticketNumber
+
+);
+
+if(!ticket) return;
+
+modalBody.innerHTML = `
+
+<div class="tach-ticket">
+
+<div class="ticket-header">
+
+<div>
+
+<h2>
+
+${ticket.ticketNumber}
+
+</h2>
+
+</div>
+
+<div>
+
+<span class="${
+ticket.used ? "badge-used" : "badge-valid"
+}">
+
+${ticket.used ? "USED" : "VALID"}
+
+</span>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="ticket-grid">
+
+<div>
+
+<label>
+
+Buyer
+
+</label>
+
+<h3>
+
+${ticket.buyer.name}
+
+</h3>
+
+</div>
+
+<div>
+
+<label>
+
+Ticket
+
+</label>
+
+<h3>
+
+${ticket.ticket.type}
+
+</h3>
+
+</div>
+
+<div>
+
+<label>
+
+Email
+
+</label>
+
+<h3>
+
+${ticket.buyer.email}
+
+</h3>
+
+</div>
+
+<div>
+
+<label>
+
+Phone
+
+</label>
+
+<h3>
+
+${ticket.buyer.phone}
+
+</h3>
+
+</div>
+
+<div>
+
+<label>
+
+Amount
+
+</label>
+
+<h3>
+
+₦${Number(ticket.totals.total).toLocaleString()}
+
+</h3>
+
+</div>
+
+</div>
+
+<div class="qrBox">
+
+QR Code Coming Soon
+
+</div>
+
+<div class="ticket-actions">
+
+<button class="greenBtn">
+
+✔ Admit Guest
+
+</button>
+
+<button class="goldBtn">
+
+🖨 Print
+
+</button>
+
+<button class="goldBtn">
+
+📧 Resend Email
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+modal.style.display="flex";
 
 }
