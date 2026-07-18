@@ -11,6 +11,12 @@ import {
     logout
 } from "./auth.js";
 
+import {
+
+initializeLayout
+
+}from "./layout.js";
+
 import{
 
 db,
@@ -27,7 +33,11 @@ where
 
 protectPage("admin");
 
-window.onUserReady = async () => {
+window.onUserReady = async ()=>{
+
+    initializeLayout();
+
+    initializeQuickActions();
 
     await loadDashboard();
 
@@ -35,41 +45,13 @@ window.onUserReady = async () => {
 
 async function loadDashboard(){
 
-    await loadAdmin();
-
     await loadStatistics();
 
     await loadRecentOrders();
 
-}
+    await loadTicketTypes();
 
-async function loadAdmin(){
-
-    const admin = window.loggedInStaff;
-
-    if(!admin) return;
-
-    document.getElementById("adminName").textContent =
-        admin.name;
-
-    document.getElementById("currentDate").textContent =
-        new Date().toLocaleString(
-
-            "en-NG",
-
-            {
-
-                weekday:"long",
-
-                year:"numeric",
-
-                month:"long",
-
-                day:"numeric"
-
-            }
-
-        );
+    await loadActivity();
 
 }
 
@@ -701,3 +683,208 @@ window.resendTicket=()=>{
 alert("Coming in the next milestone.");
 
 };
+
+function initializeQuickActions(){
+
+    const verifyBtn = document.getElementById("verifyBtn");
+
+    if(verifyBtn){
+
+        verifyBtn.addEventListener("click",()=>{
+
+            window.location.href = "verify.html";
+
+        });
+
+    }
+
+    const staffBtn = document.getElementById("staffBtn");
+
+    if(staffBtn){
+
+        staffBtn.addEventListener("click",()=>{
+
+            alert("Staff Management will be completed in the next milestone.");
+
+        });
+
+    }
+
+    const reportsBtn = document.getElementById("reportsBtn");
+
+    if(reportsBtn){
+
+        reportsBtn.addEventListener("click",()=>{
+
+            alert("Reports module coming soon.");
+
+        });
+
+    }
+
+    const emailBtn = document.getElementById("emailBtn");
+
+    if(emailBtn){
+
+        emailBtn.addEventListener("click",()=>{
+
+            alert("Email module coming soon.");
+
+        });
+
+    }
+
+}
+
+async function loadTicketTypes(){
+
+    const snapshot = await getDocs(
+        collection(db,"tickets")
+    );
+
+    let regular = 0;
+    let standard = 0;
+    let premium = 0;
+    let vip = 0;
+
+    snapshot.forEach(doc=>{
+
+        const ticket = doc.data();
+
+        switch((ticket.ticket?.type || "").toLowerCase()){
+
+            case "regular":
+
+                regular++;
+
+                break;
+
+            case "standard":
+
+                standard++;
+
+                break;
+
+            case "premium":
+
+                premium++;
+
+                break;
+
+            case "vip":
+
+                vip++;
+
+                break;
+
+        }
+
+    });
+
+    document.getElementById("regularCount").textContent = regular;
+
+    document.getElementById("standardCount").textContent = standard;
+
+    document.getElementById("premiumCount").textContent = premium;
+
+}
+
+async function loadActivity(){
+
+    const snapshot = await getDocs(
+        collection(db,"tickets")
+    );
+
+    const activities = [];
+
+    snapshot.forEach(doc=>{
+
+        const ticket = doc.data();
+
+        activities.push(ticket);
+
+    });
+
+    activities.sort((a,b)=>{
+
+        return b.createdAt.seconds -
+
+               a.createdAt.seconds;
+
+    });
+
+    const list =
+
+        document.getElementById(
+
+            "activityList"
+
+        );
+
+    list.innerHTML = "";
+
+    activities.slice(0,5).forEach(ticket=>{
+
+        const time =
+
+            ticket.createdAt
+
+            ?.toDate()
+
+            .toLocaleTimeString(
+
+                "en-NG",
+
+                {
+
+                    hour:"2-digit",
+
+                    minute:"2-digit"
+
+                }
+
+            );
+
+        const action =
+
+            ticket.used
+
+            ?
+
+            "🔴 Guest Checked In"
+
+            :
+
+            "🟢 Ticket Purchased";
+
+        list.innerHTML += `
+
+<li class="activity-item">
+
+<div>
+
+<strong>
+
+${ticket.buyer?.name || "Unknown"}
+
+</strong>
+
+<br>
+
+${action}
+
+</div>
+
+<div class="activity-time">
+
+${time}
+
+</div>
+
+</li>
+
+`;
+
+    });
+
+}

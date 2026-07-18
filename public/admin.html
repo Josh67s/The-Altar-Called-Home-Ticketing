@@ -29,55 +29,23 @@ href="css/admin.css">
 
 <div class="sidebar">
 
-<h2>
-
-TACH
-
-</h2>
+<h2>TACH</h2>
 
 <ul>
 
-<li class="active">
+<li id="navDashboard"> Dashboard </li>
 
-Dashboard
+<li id="navTickets"> Tickets </li>
 
-</li>
+<li id="navOrders"> Orders </li>
 
-<li>
+<li id="navStaff"> Staff</li>
 
-Tickets
+<li id="navReports"> Reports </li>
 
-</li>
+<li id="navSettings"> Settings </li>
 
-<li>
-
-Orders
-
-</li>
-
-<li>
-
-Staff
-
-</li>
-
-<li>
-
-Reports
-
-</li>
-
-<li>
-
-Settings
-
-</li>
-
-<li id="logoutBtn">
-
-Logout
-
-</li>
+<li id="logoutBtn"> Logout </li>
 
 </ul>
 
@@ -285,29 +253,13 @@ Quick Actions
 
 </h2>
 
-<button class="action-btn">
+<button id="verifyBtn" class="action-btn"> 🎟 Verify Ticket </button>
 
-🎟 Verify Ticket
+<button id="staffBtn" class="action-btn"> 👥 Staff </button>
 
-</button>
+<button id="reportsBtn" class="action-btn"> 📊 Reports </button>
 
-<button class="action-btn">
-
-👥 Staff
-
-</button>
-
-<button class="action-btn">
-
-📊 Reports
-
-</button>
-
-<button class="action-btn">
-
-📧 Send Email
-
-</button>
+<button id="emailBtn" class="action-btn"> 📧 Send Email </button>
 
 </div>
 
@@ -325,7 +277,33 @@ Ticket Types
 
 <div id="ticketChart">
 
-Chart coming soon...
+<div class="ticket-stats">
+
+<div class="ticket-row">
+
+<span>Regular</span>
+
+<strong id="regularCount">0</strong>
+
+</div>
+
+<div class="ticket-row">
+
+<span>Standard</span>
+
+<strong id="standardCount">0</strong>
+
+</div>
+
+<div class="ticket-row">
+
+<span>Premium</span>
+
+<strong id="premiumCount">0</strong>
+
+</div>
+
+</div>
 
 </div>
 
@@ -341,7 +319,9 @@ Today's Activity
 
 <div id="activityLog">
 
-No activity yet.
+<ul id="activityList" class="activity-list">
+
+</ul>
 
 </div>
 

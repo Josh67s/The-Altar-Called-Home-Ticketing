@@ -30,11 +30,15 @@ body{
 
 .sidebar h2{
 
-    color:gold;
+    color:#FFD700;
+
+    margin-bottom:45px;
 
     text-align:center;
 
-    margin-bottom:30px;
+    font-size:2rem;
+
+    letter-spacing:2px;
 
 }
 
@@ -42,47 +46,56 @@ body{
 
     list-style:none;
 
-    padding:0;
-
 }
 
 .sidebar li{
 
-    margin-bottom:10px;
+    padding:16px 18px;
+
+    margin-bottom:12px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:15px;
 
 }
 
-.sidebar a{
+.sidebar li:hover{
 
-    display:block;
-
-    padding:12px;
-
-    color:white;
-
-    text-decoration:none;
-
-    border-radius:8px;
-
-    transition:.3s;
+    background:#2a2a2a;
 
 }
 
-.sidebar a:hover{
+.sidebar li.active{
 
-    background:#333;
+    background:linear-gradient(
+        135deg,
+        #FFD700,
+        #E5B800
+    );
+
+    color:#000;
+
+    font-weight:700;
+
+}
+
+.sidebar ul li.active{
+
+background:#ffcc00;
+
+color:#000;
+
+font-weight:600;
+
+border-radius:12px;
 
 }
 
-.sidebar .active a{
-
-    background:gold;
-
-    color:black;
-
-    font-weight:600;
-
-}
 
 .main{
 

@@ -5,6 +5,14 @@ logout
 
 }from "./auth.js";
 
+import {
+
+initializeLayout
+
+}
+
+from "./layout.js";
+
 import{
 
 createTicketCard
@@ -37,6 +45,7 @@ getDocs
 
 }from "./firebase-config.js";
 
+
 let allTickets = [];
 
 let filteredTickets = [];
@@ -47,95 +56,13 @@ const rowsPerPage = 10;
 
 window.onUserReady = async ()=>{
 
-loadPage();
+    initializeLayout();
 
-await loadTickets();
+    await loadTickets();
 
 };
 
-function loadPage(){
-
-const admin =
-
-window.loggedInStaff;
-
-if(!admin){
-
-return;
-
-}
-
-const adminName =
-
-document.getElementById(
-
-"adminName"
-
-);
-
-if(adminName){
-
-adminName.textContent =
-
-admin.name;
-
-}
-
-const currentDate =
-
-document.getElementById(
-
-"currentDate"
-
-);
-
-if(currentDate){
-
-currentDate.textContent =
-
-new Date().toLocaleDateString(
-
-"en-NG",
-
-{
-
-weekday:"long",
-
-year:"numeric",
-
-month:"long",
-
-day:"numeric"
-
-}
-
-);
-
-}
-
-}
-
 protectPage("admin");
-
-const logoutBtn =
-
-document.getElementById(
-
-"logoutBtn"
-
-);
-
-if(logoutBtn){
-
-logoutBtn.addEventListener(
-
-"click",
-
-logout
-
-);
-
-}
 
 async function loadTickets(){
 
