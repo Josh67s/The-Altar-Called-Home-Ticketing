@@ -98,13 +98,13 @@ width:100%;
 
 padding:15px;
 
-margin-bottom:20px;
-
 border-radius:10px;
 
 border:none;
 
 font-size:16px;
+
+box-sizing:border-box;
 
 }
 
@@ -153,5 +153,158 @@ margin-top:20px;
 font-weight:bold;
 
 color:#ff6b6b;
+
+}
+
+.password-wrapper{
+
+position:relative;
+
+width:100%;
+
+margin-bottom:20px;
+
+}
+
+.password-wrapper input{
+
+width:100%;
+
+padding:15px 50px 15px 15px;
+
+margin-bottom:0;
+
+border-radius:10px;
+
+border:none;
+
+font-size:16px;
+
+box-sizing:border-box;
+
+}
+
+.toggle-password{
+
+position:absolute;
+
+top:0;
+
+right:15px;
+
+height:100%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+cursor:pointer;
+
+font-size:18px;
+
+color:#777;
+
+user-select:none;
+
+}
+
+.toggle-password:hover{
+
+color:gold;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:10px;
+
+background:linear-gradient(135deg,#d4af37,#f4d03f);
+
+color:#111;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.25s;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 10px 20px rgba(212,175,55,.35);
+
+}
+
+button:disabled{
+
+opacity:.7;
+
+cursor:not-allowed;
+
+}
+
+.spinner{
+
+width:20px;
+
+height:20px;
+
+border:3px solid rgba(0,0,0,.2);
+
+border-top:3px solid #111;
+
+border-radius:50%;
+
+animation:spin .7s linear infinite;
+
+flex-shrink:0;
+
+}
+.hidden{
+
+display:none !important;
+
+}
+
+@keyframes spin{
+
+from{
+
+transform:rotate(0deg);
+
+}
+
+to{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+#loginText{
+
+display:inline-block;
 
 }

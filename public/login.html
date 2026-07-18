@@ -56,22 +56,38 @@ href="css/login.css">
 
             <label>
 
-                Password
+    Password
 
-            </label>
+</label>
 
-            <input
-            type="password"
-            id="password"
-            required>
+<div class="password-wrapper">
 
-            <button
-            type="submit"
-            id="loginBtn">
+<input
+type="password"
+id="password"
+required>
 
-                Login
+<span
+id="togglePassword"
+class="toggle-password">
 
-            </button>
+👁
+
+</span>
+
+</div>
+
+            <button type="submit" id="loginBtn">
+
+<span id="loginText">
+
+Login
+
+</span>
+
+<span id="loginSpinner" class="spinner hidden"></span>
+
+</button>
 
         </form>
 
