@@ -11,10 +11,24 @@ const { FieldValue } = admin.firestore;
 const PAYSTACK_SECRET_KEY =
     defineSecret("PAYSTACK_SECRET_KEY");
 
+const {
+
+    sendTicketEmail,
+
+    gmailEmail,
+
+    gmailPassword
+
+} = require("../services/emailService");
+
 exports.verifyPayment = onCall(
-    {
-        secrets: [PAYSTACK_SECRET_KEY]
-    },
+{
+    secrets:[
+        PAYSTACK_SECRET_KEY,
+        gmailEmail,
+        gmailPassword
+    ]
+},
 
     async (request) => {
 
@@ -180,6 +194,28 @@ await orderDoc.ref.update({
     "payment.firestoreId": orderDoc.id
 
 });
+
+const updatedOrder = {
+
+    id: orderDoc.id,
+
+    ...orderDoc.data(),
+
+    ticketNumber,
+
+    payment:{
+
+        ...orderDoc.data().payment,
+
+        status:"Paid",
+
+        reference:paymentData.reference
+
+    }
+
+};
+
+await sendTicketEmail(updatedOrder);
 
 return {
 

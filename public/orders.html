@@ -1,0 +1,219 @@
+  <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+
+TACH ORDERS
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="css/orders.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>TACH</h2>
+
+<ul>
+
+<li id="navDashboard"> Dashboard </li>
+
+<li id="navTickets"> Tickets </li>
+
+<li id="navOrders"> Orders </li>
+
+<li id="navStaff"> Staff</li>
+
+<li id="navReports"> Reports </li>
+
+<li id="navSettings"> Settings </li>
+
+<li id="logoutBtn"> Logout </li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1> Orders </h1>
+
+<p> Manage all issued Orders. </p>
+
+</div>
+
+<div class="admin-profile">
+
+<div class="avatar"> 🎟 </div>
+
+<div>
+
+<h3 id="adminName"> Loading... </h3>
+
+<p id="currentDate"> Loading... </p>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="stats-grid">
+
+<div class="stat-card">
+
+<h3>Total Orders</h3>
+
+<h1 id="totalOrders">0</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Paid Orders</h3>
+
+<h1 id="paidOrders">0</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Revenue</h3>
+
+<h1 id="totalRevenue">₦0</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Tickets Sold</h3>
+
+<h1 id="ticketsSold">0</h1>
+
+</div>
+
+</section>
+
+
+<div class="toolbar">
+
+<input
+
+id="searchOrder"
+
+type="text"
+
+placeholder="Search buyer, order or payment reference">
+
+<select id="statusFilter">
+
+<option value="all">
+
+All Orders
+
+</option>
+
+<option value="paid">Paid</option>
+
+<option value="pending">Pending</option>
+
+<option value="failed">Failed</option>
+
+</select>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order</th>
+
+<th>Buyer</th>
+
+<th>Ticket</th>
+
+<th>Amount</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ordersBody">
+
+</tbody>
+
+</table>
+
+<div class="pagination">
+
+<button id="prevBtn">
+
+Previous
+
+</button>
+
+<span id="pageInfo">
+
+Showing 0-0
+
+</span>
+
+<button id="nextBtn">
+
+Next
+
+</button>
+
+</div>
+
+<div id="ticketModal" class="modal">
+
+<div class="modal-content">
+
+<span id="closeModal" class="close">
+
+&times;
+
+</span>
+
+<div id="modalBody"></div>
+
+</div>
+
+</div>
+</div>
+
+<div id="printArea" style="display:none;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="module"src="js/orders.js"></script>
+
+</body>
+
+</html>
