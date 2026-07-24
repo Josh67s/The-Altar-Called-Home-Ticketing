@@ -9,15 +9,21 @@ import {
 
 initializeLayout
 
-}
-
-from "./layout.js";
+}from "./layout.js";
 
 import{
 
 createTicketCard
 
 }from "./components/ticket-card.js";
+
+import{
+
+downloadPDF,
+
+resendEmail
+
+}from "./components/ticketActions.js";
 
 import{
 
@@ -485,11 +491,39 @@ t=>t.ticketNumber===ticketNumber
 
 if(!ticket) return;
 
-console.log(`${window.location.origin}/verify.html?id=${ticket.orderId}`);
+const order = {
+
+    buyer: ticket.buyer,
+
+    ticket: ticket.ticket,
+
+    totals: ticket.totals,
+
+    payment: ticket.payment,
+
+    ticketNumber: ticket.ticketNumber,
+
+    orderId: ticket.orderId
+
+};
+
+if(!ticket) return;
 
 modalBody.innerHTML =
 
-createTicketCard(ticket);
+createTicketCard(
+
+    ticket,
+
+    {
+
+        showActions:true,
+
+        showCheckIn:true
+
+    }
+
+);
 
 generateQRCode(
 
@@ -499,6 +533,114 @@ generateQRCode(
 
 );
 
+attachTicketActions(ticket);
+
 openModal(modal);
+
+}
+
+function attachTicketActions(ticket){
+
+    const printBtn =
+    document.getElementById("printTicketBtn");
+
+    const pdfBtn =
+    document.getElementById("pdfTicketBtn");
+
+    const emailBtn =
+    document.getElementById("emailTicketBtn");
+
+    const admitBtn =
+    document.getElementById("admitGuestBtn");
+
+    if(printBtn){
+
+        printBtn.onclick = ()=>{
+
+            const content =
+
+            document.getElementById("modalBody").innerHTML;
+
+            const win =
+
+            window.open("", "_blank");
+
+            win.document.write(`
+                <html>
+                <head>
+                    <title>Print Ticket</title>
+                    <style>
+
+                        body{
+
+                            font-family:Arial;
+
+                            padding:30px;
+
+                        }
+
+                        button{
+
+                            display:none;
+
+                        }
+
+                    </style>
+                </head>
+
+                <body>
+
+                ${content}
+
+                </body>
+
+                </html>
+            `);
+
+            win.document.close();
+
+            win.print();
+
+            win.close();
+
+        };
+
+    }
+
+    if(pdfBtn){
+
+        pdfBtn.onclick = ()=>{
+
+            downloadPDF(ticket);
+
+        };
+
+    }
+
+    if(emailBtn){
+
+        emailBtn.onclick = ()=>{
+
+            resendEmail({
+
+                id:ticket.orderId
+
+            });
+
+        };
+
+    }
+
+    if(admitBtn){
+
+        admitBtn.onclick = ()=>{
+
+            window.location.href =
+
+            `verify.html?id=${ticket.orderId}`;
+
+        };
+
+    }
 
 }

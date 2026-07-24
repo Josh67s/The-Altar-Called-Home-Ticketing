@@ -1,20 +1,18 @@
 import{
 
-    protectPage
+    protectPage,
+    currentUser
 
-}
-
-from "./auth.js";
+}from "./auth.js";
 
 protectPage("usher");
 
-import{
+window.onUserReady = async () => {
 
-createTicketCard
+    await initialize();
+    startScanner();
 
-}
-
-from "./components/ticket-card.js";
+};
 
 import {
 
@@ -47,13 +45,189 @@ console.log("================================");
 const params =
     new URLSearchParams(window.location.search);
 
-const id =
+let currentOrderId =
     params.get("id");
 
 const card =
     document.getElementById("verificationCard");
 
-initialize();
+    const searchInput =
+document.getElementById("ticketSearch");
+
+const searchBtn =
+document.getElementById("searchBtn");
+
+
+searchBtn.addEventListener(
+
+"click",
+
+manualSearch
+
+);
+
+searchInput.addEventListener(
+
+"keypress",
+
+(e)=>{
+
+if(e.key==="Enter"){
+
+manualSearch();
+
+}
+
+}
+
+);
+
+async function manualSearch(){
+
+const keyword =
+searchInput.value.trim();
+
+if(!keyword){
+
+return;
+
+}
+
+card.innerHTML=`
+
+<div class="loading">
+
+<div class="spinner"></div>
+
+<h2>
+
+Searching...
+
+</h2>
+
+</div>
+
+`;
+
+try{
+
+// Search Orders
+
+const orderSnapshot =
+await getDocs(collection(db,"orders"));
+
+let foundOrder=null;
+
+orderSnapshot.forEach(doc=>{
+
+const order=doc.data();
+
+if(
+
+doc.id===keyword ||
+
+order.ticketNumber===keyword ||
+
+order.buyer?.name
+?.toLowerCase()
+.includes(keyword.toLowerCase()) ||
+
+order.buyer?.phone
+?.includes(keyword)
+
+){
+
+foundOrder={
+
+id:doc.id,
+
+...order
+
+};
+
+currentOrderId = foundOrder.id;
+
+}
+
+});
+
+if(!foundOrder){
+
+showError(
+
+"Not Found",
+
+"No matching ticket."
+
+);
+
+return;
+
+}
+
+// Find ticket
+
+const ticketQuery=
+
+query(
+
+collection(db,"tickets"),
+
+where(
+
+"orderId",
+
+"==",
+
+foundOrder.id
+
+)
+
+);
+
+const ticketSnap=
+
+await getDocs(ticketQuery);
+
+if(ticketSnap.empty){
+
+showError(
+
+"Ticket Missing",
+
+"No ticket exists."
+
+);
+
+return;
+
+}
+
+renderTicket(
+
+foundOrder,
+
+ticketSnap.docs[0].data()
+
+);
+
+}
+
+catch(error){
+
+console.error(error);
+
+showError(
+
+"Search Failed",
+
+error.message
+
+);
+
+}
+
+}
 
 async function initialize(){
 
@@ -81,22 +255,14 @@ async function initialize(){
 
 async function loadTicket(){
 
-    if(!id){
+    if(!currentOrderId){
 
-        showError(
+    return;
 
-            "Invalid QR Code",
-
-            "The QR Code does not contain a valid ticket."
-
-        );
-
-        return;
-
-    }
+}
 
     const orderRef =
-        doc(db,"orders",id);
+    doc(db,"orders",currentOrderId);
 
     const orderSnap =
         await getDoc(orderRef);
@@ -120,13 +286,13 @@ async function loadTicket(){
 
     const ticketQuery =
 
-        query(
+    query(
 
-            collection(db,"tickets"),
+        collection(db,"tickets"),
 
-            where("orderId","==",id)
+        where("orderId","==",currentOrderId)
 
-        );
+    );
 
     const ticketSnap =
         await getDocs(ticketQuery);
@@ -245,36 +411,44 @@ function renderTicket(order, ticket){
 <div class="details">
 
     ${createRow(
+    "👤 Buyer",
+    order.buyer.name
+)}
 
-        "👤 Buyer",
+${createRow(
+    "📧 Email",
+    order.buyer.email
+)}
 
-        order.buyer.name
+${createRow(
+    "📞 Phone",
+    order.buyer.phone
+)}
 
-    )}
+${createRow(
+    "🎟 Ticket",
+    capitalize(order.ticket.type)
+)}
 
-    ${createRow(
+${createRow(
+    "🎫 Ticket Number",
+    ticket.ticketNumber
+)}
 
-        "🎟 Ticket",
+${createRow(
+    "👥 Quantity",
+    order.ticket.quantity
+)}
 
-        capitalize(order.ticket.type)
+${createRow(
+    "💰 Amount",
+    "₦"+Number(order.totals.total).toLocaleString()
+)}
 
-    )}
-
-    ${createRow(
-
-        "👥 Quantity",
-
-        order.ticket.quantity
-
-    )}
-
-    ${createRow(
-
-        "💳 Payment",
-
-        "<span class='paid'>✔ Paid</span>"
-
-    )}
+${createRow(
+    "💳 Payment",
+    "<span class='paid'>✔ Paid</span>"
+)}
 
     ${used
 
@@ -435,9 +609,9 @@ async function checkInGuest(){
 
             await checkIn({
 
-                orderId:id,
+                orderId: currentOrderId,
 
-                usher:"Gate 1"
+                usher: window.loggedInStaff?.fullName || "Unknown Staff"
 
             });
 
@@ -476,3 +650,64 @@ async function checkInGuest(){
 
 }
 
+function startScanner(){
+
+    const scanner = new Html5Qrcode("reader");
+
+    scanner.start(
+
+        {
+
+            facingMode:"environment"
+
+        },
+
+        {
+
+            fps:10,
+
+            qrbox:250
+
+        },
+
+        async(decodedText)=>{
+
+            scanner.stop();
+
+            processQRCode(decodedText);
+
+        },
+
+        ()=>{}
+
+    );
+
+}
+
+async function processQRCode(text){
+
+    try{
+
+        const url = new URL(text);
+
+        currentOrderId = url.searchParams.get("id");
+
+        if(!currentOrderId){
+
+            alert("Invalid QR Code.");
+
+            return;
+
+        }
+
+        await loadTicket();
+
+    }
+
+    catch(error){
+
+        alert("Invalid QR Code.");
+
+    }
+
+}

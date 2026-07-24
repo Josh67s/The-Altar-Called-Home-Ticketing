@@ -1,0 +1,219 @@
+  <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+
+TACH STAFF
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="css/staff.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>TACH</h2>
+
+<ul>
+
+<li id="navDashboard"> Dashboard </li>
+
+<li id="navTickets"> Tickets </li>
+
+<li id="navOrders"> Orders </li>
+
+<li id="navStaff"> Staff</li>
+
+<li id="navReports"> Reports </li>
+
+<li id="navSettings"> Settings </li>
+
+<li id="logoutBtn"> Logout </li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1>Staff Management</h1>
+
+<p>Manage staff accounts and permissions.</p>
+
+</div>
+
+<div class="admin-profile">
+
+<div class="avatar"> 🎟 </div>
+
+<div>
+
+<h3 id="adminName"> Loading... </h3>
+
+<p id="currentDate"> Loading... </p>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="stats-grid">
+
+<div class="stat-card">
+    <h3>Total Staff</h3>
+    <h1 id="totalStaff">0</h1>
+</div>
+
+<div class="stat-card">
+    <h3>Administrators</h3>
+    <h1 id="totalAdmins">0</h1>
+</div>
+
+<div class="stat-card">
+    <h3>Check-in Officers</h3>
+    <h1 id="totalOfficers">0</h1>
+</div>
+
+<div class="stat-card">
+    <h3>Active Staff</h3>
+    <h1 id="activeStaff">0</h1>
+</div>
+
+</section>
+
+
+<div class="toolbar">
+
+    <input
+        id="searchStaff"
+        type="text"
+        placeholder="Search by name or email">
+
+    <select id="roleFilter">
+
+        <option value="all">All Roles</option>
+
+        <option value="admin">
+            Admin
+        </option>
+
+        <option value="usher">
+            Check-in Officer
+        </option>
+
+    </select>
+
+    <select id="statusFilter">
+
+        <option value="all">All Status</option>
+
+        <option value="active">Active</option>
+
+        <option value="inactive">Inactive</option>
+
+    </select>
+
+    <button
+        id="addStaffBtn"
+        class="goldBtn">
+
+        + Add Staff
+
+    </button>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Role</th>
+
+<th>Status</th>
+
+<th>Last Login</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="staffBody">
+
+</tbody>
+
+</table>
+
+<div class="pagination">
+
+<button id="prevBtn">
+
+Previous
+
+</button>
+
+<span id="staffPageInfo">
+
+Showing 0-0
+
+</span>
+
+<button id="nextBtn">
+
+Next
+
+</button>
+
+</div>
+
+<div id="staffModal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="closeStaffModal" class="close">
+
+            &times;
+
+        </span>
+
+        <div id="staffModalBody">
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+<script type="module"src="js/staff.js"></script>
+
+</body>
+
+</html>

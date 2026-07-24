@@ -7,11 +7,16 @@ require("firebase-admin");
 const db =
 admin.firestore();
 
-exports.deleteStaff = onCall(
+exports.toggleStaff = onCall(
 
 async(request)=>{
 
-    const { uid } = request.data;
+    const {
+
+        uid,
+        active
+
+    } = request.data;
 
     if(!uid){
 
@@ -25,26 +30,24 @@ async(request)=>{
 
     }
 
-    if(request.auth?.uid === uid){
-
-        throw new HttpsError(
-
-            "permission-denied",
-
-            "You cannot delete your own account."
-
-        );
-
-    }
-
     await db
     .collection("staff")
     .doc(uid)
-    .delete();
+    .update({
 
-    await admin
-    .auth()
-    .deleteUser(uid);
+        active,
+
+        updatedAt:
+        admin.firestore.FieldValue.serverTimestamp()
+
+    });
+
+    await admin.auth()
+    .updateUser(uid,{
+
+        disabled: !active
+
+    });
 
     return{
 

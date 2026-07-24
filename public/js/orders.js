@@ -25,11 +25,38 @@ registerModal
 
 import{
 
+formatCurrency,
+formatTicketName
+
+}from "./utils/formatter.js";
+
+import{
+
+downloadTicketPDF
+
+}from "./utils/pdf.js";
+
+import{
+
+generateQRCode
+
+}from "./utils/qr.js";
+
+import{
+
+showAlert
+
+}from "./utils/alerts.js";
+
+import{
+
 db,
 collection,
-getDocs
-
+getDocs,
+functions,
+    httpsCallable
 }from "./firebase-config.js";
+
 
 protectPage("admin");
 
@@ -48,6 +75,13 @@ window.onUserReady = async ()=>{
     await loadOrders();
 
 };
+
+
+const resendEmailCallable =
+httpsCallable(
+    functions,
+    "resendTicketEmail"
+);
 
 async function loadOrders(){
 
@@ -247,7 +281,7 @@ ${order.ticket?.type||"-"}
 
 <td>
 
-₦${Number(order.totals?.total||0).toLocaleString()}
+${formatCurrency(order.totals?.total)}
 
 </td>
 
@@ -523,7 +557,7 @@ ${badge}
 
 <label>Total</label>
 
-<p>₦${Number(order.totals?.total||0).toLocaleString()}</p>
+<p>${formatCurrency(order.totals?.total)}</p>
 
 </div>
 
@@ -589,25 +623,13 @@ ${a.name}
 
 modal.style.display="flex";
 
-new QRCode(
+generateQRCode(
 
-document.getElementById("orderQR"),
-
-{
-
-text:
+"orderQR",
 
 window.location.origin+
-
 "/verify.html?id="+
-
-order.id,
-
-width:180,
-
-height:180
-
-}
+order.id
 
 );
 
@@ -623,7 +645,7 @@ document
 .getElementById("downloadPDF")
 .onclick = ()=>{
 
-downloadPDF(order);
+downloadTicketPDF(order);
 
 };
 
@@ -647,284 +669,6 @@ setTimeout(()=>{
 window.print();
 
 },500);
-
-}
-
-async function downloadPDF(order){
-
-const { jsPDF } = window.jspdf;
-
-const pdf = new jsPDF({
-
-orientation:"portrait",
-
-unit:"mm",
-
-format:"a4"
-
-});
-
-pdf.setDrawColor(212,175,55);
-pdf.setLineWidth(1.2);
-pdf.rect(8,8,194,281);
-
-pdf.setFont("helvetica","bold");
-
-pdf.setFontSize(24);
-
-pdf.setTextColor(212,175,55);
-
-pdf.text(
-
-"THE ALTAR CALLED HOME",
-
-105,
-
-20,
-
-{align:"center"}
-
-);
-
-pdf.setFontSize(12);
-
-pdf.setTextColor(80);
-
-pdf.text(
-
-"Amazing Crew TV Production",
-
-105,
-
-28,
-
-{align:"center"}
-
-);
-
-pdf.line(20,35,190,35);
-
-pdf.setDrawColor(212,175,55);
-
-pdf.line(20,35,190,35);
-
-pdf.setFontSize(11);
-
-pdf.setTextColor(0);
-
-let y = 50;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Order ID:",20,y);
-
-pdf.setFont("helvetica","normal");
-pdf.text(String(order.id),55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Buyer:",20,y);
-
-pdf.setFont("helvetica","normal");
-pdf.text(String(order.buyer?.name || "-"),55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Email:",20,y);
-
-pdf.setFont("helvetica","normal");
-pdf.text(order.buyer?.email||"-",55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Phone:",20,y);
-
-pdf.setFont("helvetica","normal");
-pdf.text(order.buyer?.phone||"-",55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Ticket:",20,y);
-
-pdf.setFont("helvetica","normal");
-
-const ticketName =
-order.ticket?.type==="premium"
-? "Premium Access"
-: order.ticket?.type==="standard"
-? "Standard Access"
-: "Regular Access";
-
-pdf.text(ticketName,55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Attendees:",20,y);
-
-pdf.setFont("helvetica","normal");
-pdf.text(
-String(order.attendees?.length || order.ticket?.quantity || 0),55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Amount:",20,y);
-
-pdf.setFont("helvetica","normal");
-const amount = new Intl.NumberFormat("en-NG").format(
-Number(order.totals?.total || 0));
-
-pdf.text(`₦${amount}`,55,y);
-
-y+=10;
-
-pdf.setFont("helvetica","bold");
-pdf.text("Status:",20,y);
-
-if(order.payment?.status==="Paid"){
-
-pdf.setTextColor(0,150,0);
-
-}else if(order.payment?.status==="Pending"){
-
-pdf.setTextColor(220,140,0);
-
-}else{
-
-pdf.setTextColor(220,0,0);
-
-}
-
-pdf.text(String(order.payment?.status || "-"),55,y);
-
-pdf.setTextColor(0);
-
-y += 20;
-
-pdf.setDrawColor(212,175,55);
-
-pdf.line(20,y,190,y);
-
-y += 10;
-
-pdf.setFont("helvetica","bold");
-
-pdf.setFontSize(13);
-
-pdf.setTextColor(212,175,55);
-
-pdf.text("PREMIERE INFORMATION",20,y);
-
-y += 12;
-
-pdf.setFont("helvetica","normal");
-
-pdf.setTextColor(0);
-
-pdf.text("Date: Friday, September 4, 2026",20,y);
-
-y += 8;
-
-pdf.text("Time: 4:00 PM",20,y);
-
-y += 8;
-
-pdf.text("Venue: Assemblies of God Church",20,y);
-
-y += 8;
-
-pdf.text("Umudibia Nekede, Owerri",20,y);
-
-
-const qrCanvas =
-document.querySelector("#orderQR canvas");
-
-if(qrCanvas){
-
-const qrImage =
-qrCanvas.toDataURL("image/png");
-
-pdf.setFontSize(11);
-pdf.setTextColor(212,175,55);
-pdf.text("Verification QR",140,168);
-
-pdf.addImage(
-
-qrImage,
-
-"PNG",
-
-140,175,40,40
-
-);
-
-pdf.setFontSize(9);
-
-pdf.setTextColor(100);
-
-pdf.text(
-
-"Scan to Verify Ticket",
-
-162,
-
-220,
-
-{align:"center"}
-
-);
-
-}
-
-pdf.setDrawColor(212,175,55);
-
-pdf.line(20,245,190,245);
-
-pdf.setFontSize(10);
-
-pdf.setTextColor(100);
-
-pdf.text(
-
-"Please present this ticket together with a valid means of identification.",
-
-105,
-
-255,
-
-{align:"center"}
-
-);
-
-pdf.text(
-
-"Powered by Amazing Crew TV Production",
-
-105,
-
-262,
-
-{align:"center"}
-
-);
-
-pdf.text(
-
-"© 2026 Amazing Crew TV Production",
-
-105,
-
-269,
-
-{align:"center"}
-
-);
-
-pdf.save (`TACH-${order.id}.pdf`);
 
 }
 
@@ -1025,7 +769,7 @@ ${order.ticket?.quantity || 0}
 
 <strong>Total Paid</strong><br>
 
-₦${Number(order.totals?.total || 0).toLocaleString()}
+${formatCurrency(order.totals?.total)}
 
 </div>
 
@@ -1073,5 +817,53 @@ height:180
 
 }
 
+async function resendTicket(order){
+
+    try{
+
+        const button =
+        document.getElementById("resendTicket");
+
+        button.disabled = true;
+
+        button.textContent =
+        "Sending...";
+
+        await resendEmailCallable({
+
+            orderId: order.id
+
+        });
+
+        button.textContent =
+        "✓ Email Sent";
+
+        showAlert(
+    "Ticket email sent successfully.",
+    "success"
+);
+
+    }catch(error){
+
+        console.error(error);
+
+        showAlert(
+    error.message,
+    "error"
+);
+
+    }finally{
+
+        const button =
+        document.getElementById("resendTicket");
+
+        button.disabled = false;
+
+        button.textContent =
+        "📧 Resend Email";
+
+    }
+
+}
 
 

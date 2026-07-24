@@ -1,6 +1,6 @@
 const {
 
-    sendStaffCredentials,
+    sendStaffWelcomeEmail,
 
     gmailEmail,
 
@@ -75,6 +75,24 @@ async(request)=>{
 
 try{
 
+    console.log({
+
+    fullName,
+
+    email,
+
+    phone,
+
+    role,
+
+    password,
+
+    passwordType: typeof password,
+
+    passwordLength: password ? password.length : 0
+
+});
+
     await admin.auth().getUserByEmail(email);
 
     throw new HttpsError(
@@ -147,7 +165,7 @@ await db.collection("staff")
 
 });
 
-await sendStaffCredentials({
+await sendStaffWelcomeEmail({
 
     fullName,
 

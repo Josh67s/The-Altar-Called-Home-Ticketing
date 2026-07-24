@@ -8,13 +8,15 @@ doc,
 
 getDoc,
 
+updateDoc,
+
+serverTimestamp,
+
 signInWithEmailAndPassword,
 
 signOut
 
-}
-
-from "./firebase-config.js";
+}from "./firebase-config.js";
 
 const form=
 
@@ -133,6 +135,18 @@ await signOut(auth);
 return;
 
 }
+
+await updateDoc(
+
+    staffRef,
+
+    {
+
+        lastLogin: serverTimestamp()
+
+    }
+
+);
 
 if(staff.role==="admin"){
 

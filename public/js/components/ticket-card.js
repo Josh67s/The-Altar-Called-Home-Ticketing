@@ -2,199 +2,162 @@ export function createTicketCard(ticket, options = {}){
 
     const {
 
-showActions = true,
+        showActions = true,
 
-showVerification = false,
+        buyer = {},
 
-buyer = {},
+        payment = {}
 
-payment = {}
+    } = options;
 
-} = options;
+    const isUsed = ticket.used === true;
 
     return `
 
-    <div class="tach-ticket">
+<div class="tach-ticket">
 
-        <div class="ticket-header">
+    <div class="ticket-header">
 
-            <div>
+        <div>
 
-                <h2>
-
-                    ${ticket.ticketNumber}
-
-                </h2>
-
-            </div>
-
-            <div>
-
-                <span class="${
-                    ticket.used
-                    ?
-                    "badge-used"
-                    :
-                    "badge-valid"
-                }">
-
-                    ${
-                    ticket.used
-                    ?
-                    "USED"
-                    :
-                    "VALID"
-                    }
-
-                </span>
-
-            </div>
+            <h2>${ticket.ticketNumber}</h2>
 
         </div>
 
-        <hr>
+        <div>
 
-        <div class="ticket-grid">
+            <span class="${isUsed ? "badge-used" : "badge-valid"}">
 
-            <div>
+                ${isUsed ? "USED" : "VALID"}
 
-                <label>
-
-                    Buyer
-
-                </label>
-
-                <h3>
-
-                   ${buyer.name || ticket.buyer?.name || "-"}
-
-                </h3>
-
-            </div>
-
-            <div>
-
-                <label>
-
-                    Ticket Type
-
-                </label>
-
-                <h3>
-
-                    ${ticket.ticket?.type || "-"}
-
-                </h3>
-
-            </div>
-
-            <div>
-
-                <label>
-
-                    Email
-
-                </label>
-
-                <h3>
-
-                    ${buyer.email || ticket.buyer?.email || "-"}
-
-                </h3>
-
-            </div>
-
-            <div>
-
-                <label>
-
-                    Phone
-
-                </label>
-
-                <h3>
-
-                    ${buyer.phone || ticket.buyer?.phone || "-"}
-
-                </h3>
-
-            </div>
-
-            <div>
-
-                <label>
-
-                    Amount
-
-                </label>
-
-                <h3>
-
-                    ₦${Number(payment.total || ticket.totals?.total || 0).toLocaleString()}
-
-                </h3>
-
-            </div>
+            </span>
 
         </div>
 
-        <div id="ticketQR"
+    </div>
 
-        class="qrBox">
+    <hr>
+
+    <div class="ticket-grid">
+
+        <div>
+
+            <label>Buyer</label>
+
+            <h3>${buyer.name || ticket.buyer?.name || "-"}</h3>
 
         </div>
 
-        ${
+        <div>
 
-showActions
+            <label>Ticket Type</label>
 
-?
+            <h3>${ticket.ticket?.type || "-"}</h3>
 
-`
+        </div>
 
-<div class="ticket-actions">
+        <div>
 
-<button
+            <label>Email</label>
 
-id="admitGuestBtn"
+            <h3>${buyer.email || ticket.buyer?.email || "-"}</h3>
 
-class="greenBtn">
+        </div>
 
-✔ Admit Guest
+        <div>
 
-</button>
+            <label>Phone</label>
 
-<button
+            <h3>${buyer.phone || ticket.buyer?.phone || "-"}</h3>
 
-id="printTicketBtn"
+        </div>
 
-class="goldBtn">
+        <div>
 
-🖨 Print
+            <label>Amount</label>
 
-</button>
+            <h3>
 
-<button
+                ₦${Number(payment.total || ticket.totals?.total || 0).toLocaleString()}
 
-id="emailTicketBtn"
+            </h3>
 
-class="goldBtn">
+        </div>
 
-📧 Resend Email
+    </div>
 
-</button>
+    <div id="ticketQR" class="qrBox"></div>
+
+    ${
+        showActions
+        ?
+        `
+
+        <div class="ticket-actions">
+
+            ${
+                isUsed
+                ?
+                `
+                <div class="checked-in-box">
+
+                    ✅ Already Checked In
+
+                    <br>
+
+                    <small>
+
+                        ${ticket.checkedInBy || "Unknown Staff"}
+
+                    </small>
+
+                </div>
+                `
+                :
+                `
+                <button
+                    id="admitGuestBtn"
+                    class="greenBtn">
+
+                    ✔ Admit Guest
+
+                </button>
+                `
+            }
+
+            <button
+                id="printTicketBtn"
+                class="goldBtn">
+
+                🖨 Print
+
+            </button>
+
+            <button
+                id="pdfTicketBtn"
+                class="goldBtn">
+
+                📄 PDF
+
+            </button>
+
+            <button
+                id="emailTicketBtn"
+                class="goldBtn">
+
+                📧 Email
+
+            </button>
+
+        </div>
+
+        `
+        :
+        ""
+    }
 
 </div>
 
-`
-
-:
-
-""
-
-}
-    </div>
-
-    `;
+`;
 
 }

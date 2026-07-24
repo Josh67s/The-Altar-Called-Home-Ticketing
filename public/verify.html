@@ -31,15 +31,48 @@ href="css/verify.css">
 
 <div class="page">
 
-    <div class="verify-card" id="verificationCard">
+    <div class="scanner-card">
+
+    <h2>📷 Scan Ticket QR Code</h2>
+
+    <div id="reader"></div>
+
+</div>
+
+    <div class="search-panel">
+
+        <input
+        id="ticketSearch"
+        type="text"
+        placeholder="Search Order ID, Ticket Number, Name or Phone">
+
+        <button id="searchBtn">
+
+            🔍 Search
+
+        </button>
+
+    </div>
+
+    <div class="verify-card"
+
+         id="verificationCard">
 
         <div class="loading">
 
             <div class="spinner"></div>
 
-            <h2>Loading Ticket...</h2>
+            <h2>
 
-            <p>Please wait</p>
+                Waiting...
+
+            </h2>
+
+            <p>
+
+                Scan a QR Code or Search for a Ticket
+
+            </p>
 
         </div>
 
@@ -47,6 +80,7 @@ href="css/verify.css">
 
 </div>
 
+<script src="https://unpkg.com/html5-qrcode"></script>
 <script type="module" src="js/verify.js"></script>
 
 </body>

@@ -17,6 +17,12 @@ initializeLayout
 
 }from "./layout.js";
 
+import {
+
+downloadTicketPDF
+
+} from "./utils/pdf.js";
+
 import{
 
 db,
@@ -30,6 +36,16 @@ query,
 where
 
 }from "./firebase-config.js";
+
+const resendEmailCallable =
+
+httpsCallable(
+
+functions,
+
+"resendTicketEmail"
+
+);
 
 protectPage("admin");
 
@@ -104,6 +120,8 @@ async function loadStatistics(){
 
     document.getElementById("revenue").textContent =
         "₦" + revenue.toLocaleString();
+
+        
 
 }
 
@@ -326,7 +344,29 @@ VALID
 
 </span>`;
 
-body.innerHTML=`
+const printHeader = `
+
+<div class="print-header">
+
+<h1>
+
+THE ALTAR CALLED HOME
+
+</h1>
+
+<p>
+
+Amazing Crew TV Production
+
+</p>
+
+<hr>
+
+</div>
+
+`;
+
+body.innerHTML = printHeader + `
 
 <div class="modal-row">
 
@@ -338,7 +378,7 @@ Ticket Number
 
 <strong>
 
-${order.ticketNumber}
+${ticket?.ticketNumber || order.ticketNumber || "N/A"}
 
 </strong>
 
@@ -626,9 +666,7 @@ await checkIn({
 
 orderId,
 
-usher:
-
-window.loggedInStaff.name
+usher:window.loggedInStaff.fullName
 
 });
 
@@ -666,21 +704,158 @@ document.body.style.overflow = "auto";
 
 };
 
-window.printTicket=()=>{
+window.printTicket = async(id)=>{
 
-alert("Coming in the next milestone.");
+    const content = document.getElementById("modalBody").innerHTML;
+
+    const printWindow = window.open("", "_blank");
+
+    printWindow.document.write(`
+        <html>
+        <head>
+
+            <title>Print Ticket</title>
+
+            <style>
+
+                body{
+
+                    font-family:Arial,sans-serif;
+
+                    padding:30px;
+
+                    color:#222;
+
+                }
+
+                h1{
+
+                    color:#D4AF37;
+
+                    text-align:center;
+
+                    margin-bottom:5px;
+
+                }
+
+                p{
+
+                    text-align:center;
+
+                    color:#666;
+
+                }
+
+                .modal-actions,
+                .modal-btn,
+                button{
+
+                    display:none !important;
+
+                }
+
+                .ticketQR{
+
+                    width:220px;
+
+                    display:block;
+
+                    margin:25px auto;
+
+                }
+
+                .modal-row{
+
+                    display:flex;
+
+                    justify-content:space-between;
+
+                    padding:10px 0;
+
+                    border-bottom:1px solid #ddd;
+
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <hr>
+
+            ${content}
+
+        </body>
+
+        </html>
+    `);
+
+    printWindow.document.close();
+
+    printWindow.focus();
+
+    printWindow.print();
+
+    printWindow.close();
 
 };
 
-window.downloadTicket=()=>{
+window.downloadTicket = async(id)=>{
 
-alert("Coming in the next milestone.");
+    const orderRef =
+
+        doc(db,"orders",id);
+
+    const orderSnap =
+
+        await getDoc(orderRef);
+
+    if(!orderSnap.exists()){
+
+        alert("Order not found.");
+
+        return;
+
+    }
+
+    const order={
+
+        id,
+
+        ...orderSnap.data()
+
+    };
+
+    downloadTicketPDF(order);
 
 };
 
-window.resendTicket=()=>{
+window.resendTicket = async(id)=>{
 
-alert("Coming in the next milestone.");
+    try{
+
+        await resendEmailCallable({
+
+            orderId:id
+
+        });
+
+        alert(
+
+            "Ticket email sent successfully."
+
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
 
 };
 
@@ -704,7 +879,7 @@ function initializeQuickActions(){
 
         staffBtn.addEventListener("click",()=>{
 
-            alert("Staff Management will be completed in the next milestone.");
+            window.location.href = "staff.html";
 
         });
 
@@ -728,7 +903,7 @@ function initializeQuickActions(){
 
         emailBtn.addEventListener("click",()=>{
 
-            alert("Email module coming soon.");
+            window.location.href = "orders.html";
 
         });
 

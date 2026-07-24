@@ -348,65 +348,6 @@ color: #000;
 
 }
 
-.valid{
-
-background:#16a34a;
-
-color:white;
-
-padding:6px 14px;
-
-border-radius:20px;
-
-font-size:13px;
-
-font-weight:600;
-
-}
-
-.used{
-
-background:#dc2626;
-
-color:white;
-
-padding:6px 14px;
-
-border-radius:20px;
-
-font-size:13px;
-
-font-weight:600;
-
-}
-
-.viewBtn{
-
-background:gold;
-
-color:#111;
-
-padding:10px 18px;
-
-border:none;
-
-border-radius:8px;
-
-cursor:pointer;
-
-font-weight:600;
-
-transition:.25s;
-
-}
-
-.viewBtn:hover{
-
-transform:translateY(-2px);
-
-box-shadow:0 8px 15px rgba(212,175,55,.3);
-
-}
 
 @media(max-width:768px){
 
@@ -550,318 +491,6 @@ font-weight:bold;
 
 }
 
-.order-card{
-
-background:#181818;
-
-color:white;
-
-border:2px solid gold;
-
-border-radius:18px;
-
-padding:30px;
-
-}
-
-.order-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:30px;
-
-}
-
-.order-header h2{
-
-margin:0;
-
-color:gold;
-
-}
-
-.order-grid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:22px;
-
-margin-bottom:25px;
-
-}
-
-.order-grid label{
-
-display:block;
-
-font-size:13px;
-
-color:#999;
-
-margin-bottom:6px;
-
-}
-
-.order-grid p{
-
-margin:0;
-
-font-size:16px;
-
-font-weight:600;
-
-}
-
-.badge{
-
-padding:10px 18px;
-
-border-radius:30px;
-
-font-weight:bold;
-
-font-size:14px;
-
-}
-
-.badge-paid{
-
-background:#16a34a;
-
-}
-
-.badge-pending{
-
-background:#eab308;
-
-color:#111;
-
-}
-
-.badge-failed{
-
-background:#dc2626;
-
-}
-
-.attendee-list{
-
-display:grid;
-
-gap:10px;
-
-margin:20px 0;
-
-}
-
-.attendee{
-
-background:#252525;
-
-padding:14px;
-
-border-radius:8px;
-
-}
-
-.qr-preview{
-
-width:220px;
-
-height:220px;
-
-margin:25px auto;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-background:white;
-
-padding:12px;
-
-border-radius:12px;
-
-}
-
-.order-buttons{
-
-display:flex;
-
-gap:15px;
-
-margin-top:35px;
-
-}
-
-.order-buttons button{
-
-flex:1;
-
-}
-
-@media print{
-
-body *{
-
-visibility:hidden;
-
-}
-
-#printArea,
-#printArea *{
-
-visibility:visible;
-
-}
-
-#printArea{
-
-display:block !important;
-
-position:absolute;
-
-left:0;
-
-top:0;
-
-width:100%;
-
-background:white;
-
-padding:40px;
-
-color:black;
-
-z-index:999999;
-
-}
-
-.print-ticket{
-
-border:3px solid #d4af37;
-
-padding:30px;
-
-border-radius:15px;
-
-max-width:700px;
-
-margin:auto;
-
-}
-
-.print-header{
-
-text-align:center;
-
-margin-bottom:30px;
-
-}
-
-.print-header h1{
-
-margin:0;
-
-font-size:30px;
-
-color:#b8860b;
-
-}
-
-.print-header p{
-
-margin-top:8px;
-
-font-size:15px;
-
-}
-
-.print-grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:20px;
-
-margin:25px 0;
-
-}
-
-.print-grid strong{
-
-display:block;
-
-margin-bottom:5px;
-
-}
-
-.print-footer{
-
-margin-top:30px;
-
-text-align:center;
-
-font-size:14px;
-
-color:#555;
-
-}
-
-.printQR{
-
-margin:30px auto;
-
-width:200px;
-
-height:200px;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-}
-}
-
-.order-buttons{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    margin-top:25px;
-    flex-wrap:wrap;
-}
-
-.order-buttons button{
-    min-width:180px;
-    height:48px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-
-    font-size:15px;
-    font-weight:600;
-
-    transition:.25s ease;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.25);
-}
-
 .goldBtn{
     background:#d4af37;
     color:#111;
@@ -873,19 +502,383 @@ align-items:center;
     box-shadow:0 8px 18px rgba(212,175,55,.35);
 }
 
-.greenBtn{
-    background:#1e8e3e;
+#addStaffBtn{
+    padding:10px 20px;
+
+background:gold;
+
+color:black;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:600;
+}
+
+#addStaffBtn{
+    white-space: nowrap;
+}
+
+.role-badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.role-super{
+    background:#d4af37;
+    color:#000;
+}
+
+.role-admin{
+    background:#1d4ed8;
     color:#fff;
 }
 
-.greenBtn:hover{
-    background:#27a64c;
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba(39,166,76,.35);
+.role-officer{
+    background:#10b981;
+    color:#fff;
 }
 
-.order-buttons button:disabled{
-    opacity:.65;
-    cursor:not-allowed;
-    transform:none;
+.status-active{
+    background:#16a34a;
+    color:#fff;
 }
+
+.status-inactive{
+    background:#6b7280;
+    color:#fff;
+}
+
+.status-suspended{
+    background:#dc2626;
+    color:#fff;
+}
+
+.staff-avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.staff-form{
+    display:grid;
+    gap:18px;
+}
+
+.staff-form label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.staff-form input,
+.staff-form select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.staff-form button{
+    margin-top:10px;
+}
+
+/* ============================
+   GLOBAL TOAST NOTIFICATION
+============================ */
+
+.toast{
+
+position:fixed;
+
+top:25px;
+
+right:25px;
+
+min-width:280px;
+
+max-width:380px;
+
+padding:18px 22px;
+
+border-radius:10px;
+
+font-size:15px;
+
+font-weight:600;
+
+color:#fff;
+
+opacity:0;
+
+transform:translateY(-25px);
+
+transition:.35s;
+
+z-index:99999;
+
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+}
+
+.toast.show{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+.toast.success{
+
+background:#1b8f4f;
+
+}
+
+.toast.error{
+
+background:#d63c3c;
+
+}
+
+.toast.warning{
+
+background:#d4af37;
+
+color:#222;
+
+}
+
+.toast.info{
+
+background:#1e5cb3;
+
+}
+
+.delete-confirm{
+
+    text-align:center;
+
+}
+
+.delete-confirm hr{
+
+    margin:20px 0;
+
+}
+
+.dangerBtn{
+
+    background:#c62828;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.dangerBtn:hover{
+
+    background:#a51d1d;
+
+}
+
+/* =========================================
+   TACH STAFF BUTTONS
+========================================= */
+
+.modal-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+/* Base Button */
+
+.goldBtn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 22px;
+
+    border:none;
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:14px;
+    font-weight:600;
+
+    transition:.25s ease;
+
+    text-decoration:none;
+
+    user-select:none;
+}
+
+/* ===========================
+   GOLD BUTTON
+=========================== */
+
+.staff-btn-gold{
+
+    background:#FFD400;
+
+    color:#111;
+
+    box-shadow:0 6px 18px rgba(255,212,0,.28);
+
+}
+
+.staff-btn-gold:hover{
+
+    background:#ffdf33;
+
+    transform:translateY(-2px);
+
+}
+
+/* ===========================
+   GREEN BUTTON
+=========================== */
+
+.staff-btn-green{
+
+    background:#1FA34A;
+
+    color:#fff;
+
+    box-shadow:0 6px 18px rgba(31,163,74,.25);
+
+}
+
+.staff-btn-green:hover{
+
+    background:#28b455;
+
+    transform:translateY(-2px);
+
+}
+
+/* ===========================
+   BLUE BUTTON
+=========================== */
+
+.staff-btn-blue{
+
+    background:#0A84FF;
+
+    color:#fff;
+
+    box-shadow:0 6px 18px rgba(10,132,255,.25);
+
+}
+
+.staff-btn-blue:hover{
+
+    background:#3097ff;
+
+    transform:translateY(-2px);
+
+}
+
+/* ===========================
+   RED BUTTON
+=========================== */
+
+.staff-btn-red{
+
+    background:#E53935;
+
+    color:#fff;
+
+    box-shadow:0 6px 18px rgba(229,57,53,.25);
+
+}
+
+.staff-btn-red:hover{
+
+    background:#ef5350;
+
+    transform:translateY(-2px);
+
+}
+
+/* ===========================
+   GRAY BUTTON
+=========================== */
+
+.staff-btn-gray{
+
+    background:#444;
+
+    color:#fff;
+
+}
+
+.staff-btn-gray:hover{
+
+    background:#555;
+
+}
+
+/* ===========================
+   SMALL TABLE BUTTON
+=========================== */
+
+.viewBtn{
+
+    padding:8px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#FFD400;
+
+    color:#111;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.viewBtn:hover{
+
+    transform:scale(1.05);
+
+    background:#ffe03b;
+
+}
+
+/* Disabled */
+
+.staff-btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+

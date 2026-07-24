@@ -783,3 +783,74 @@ color:#aaa;
 margin-top:4px;
 
 }
+
+/* ==========================
+   PRINT TICKET
+========================== */
+
+@media print{
+
+    body *{
+
+        visibility:hidden;
+
+    }
+
+    #printArea,
+    #printArea *{
+
+        visibility:visible;
+
+    }
+
+    #printArea{
+
+        position:absolute;
+
+        left:0;
+
+        top:0;
+
+        width:100%;
+
+        background:#fff;
+
+        padding:40px;
+
+    }
+
+    .modal-actions,
+
+    .modal-btn,
+
+    #closeModal{
+
+        display:none !important;
+
+    }
+
+}
+
+.print-header{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.print-header h1{
+
+    color:#D4AF37;
+
+    margin:0;
+
+}
+
+.print-header p{
+
+    margin-top:6px;
+
+    color:#666;
+
+}

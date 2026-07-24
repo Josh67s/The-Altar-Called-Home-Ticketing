@@ -8,19 +8,15 @@ import{
 
     getDoc,
 
-    onAuthStateChanged
+    onAuthStateChanged,
+
+    signOut
 
 }
 
 from "./firebase-config.js";
 
-import{
-
-signOut
-
-}
-
-from "./firebase-config.js";
+export let currentUser = null;
 
 export function protectPage(requiredRole){
 
@@ -40,7 +36,7 @@ export function protectPage(requiredRole){
 
             try{
 
-                const staffRef=
+                const staffRef =
 
                     doc(
 
@@ -52,7 +48,7 @@ export function protectPage(requiredRole){
 
                     );
 
-                const snap=
+                const snap =
 
                     await getDoc(staffRef);
 
@@ -66,7 +62,7 @@ export function protectPage(requiredRole){
 
                 }
 
-                const staff=
+                const staff =
 
                     snap.data();
 
@@ -90,15 +86,21 @@ export function protectPage(requiredRole){
 
                 }
 
-                window.loggedInStaff=
+                currentUser = {
 
-                    staff;
+                    uid:user.uid,
 
-                    if(window.onUserReady){
+                    ...staff
 
-    window.onUserReady(staff);
+                };
 
-}
+                window.loggedInStaff = currentUser;
+
+                if(window.onUserReady){
+
+                    window.onUserReady(currentUser);
+
+                }
 
             }
 
@@ -120,7 +122,7 @@ export async function logout(){
 
         await signOut(auth);
 
-        window.location = "login.html";
+        window.location="login.html";
 
     }
 
